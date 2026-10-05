@@ -1,0 +1,299 @@
+{
+  "name": "EgypGreen",
+  "version": 2,
+  "color": {
+    "themes": [
+      {
+        "id": "light",
+        "name": "Light"
+      }
+    ],
+    "tokens": [
+      {
+        "name": "deep-green",
+        "value": "#1A7340",
+        "usage": "The dominant brand colour: \"Egyp\", the p, headers, primary buttons, vehicle and sign fields. Text on white, mist and cloud (5.3:1+); white text on it (5.9:1)."
+      },
+      {
+        "name": "leaf-green",
+        "value": "#5AA02E",
+        "usage": "\"Green\" and the leaf in the logo; graphic accents, chart lines, the pattern. Not for body text (3.2:1 on white: large text only)."
+      },
+      {
+        "name": "pine",
+        "value": "#0F4A2A",
+        "usage": "Dark depth colour: footers, the rear of the van, hover state of deep-green buttons. White text on it 10.3:1."
+      },
+      {
+        "name": "sun-amber",
+        "value": "#F2A516",
+        "usage": "Accent only, at most about 5% of any layout: the sun, one highlight per page, rating stars, the \"new\" flag. Ink text on it (7.5:1); never white text, never amber text on white."
+      },
+      {
+        "name": "amber-deep",
+        "value": "#9C5F00",
+        "usage": "Amber as text: price notes and warnings on white or amber-tint (5.2:1)."
+      },
+      {
+        "name": "ink",
+        "value": "#1D2621",
+        "usage": "Body text and headings on any light ground (15.5:1 on white)."
+      },
+      {
+        "name": "graphite",
+        "value": "#3B4640",
+        "usage": "Secondary headings, table headers, product drawings (9.8:1 on white)."
+      },
+      {
+        "name": "ink-muted",
+        "value": "#5E6A63",
+        "usage": "Captions, labels and metadata on white, cloud or mist (5.1:1+)."
+      },
+      {
+        "name": "stone",
+        "value": "#8B968F",
+        "usage": "Disabled controls, placeholder icons, chart gridlines labels at 3:1. Not for reading text."
+      },
+      {
+        "name": "line",
+        "value": "#D5DFD8",
+        "usage": "Hairlines, table rules, card and input borders."
+      },
+      {
+        "name": "cloud",
+        "value": "#F4F6F5",
+        "usage": "Neutral page band and table stripes."
+      },
+      {
+        "name": "white",
+        "value": "#FFFFFF",
+        "usage": "Default ground: generous white space is part of the identity."
+      },
+      {
+        "name": "mist",
+        "value": "#EEF5EA",
+        "usage": "Quiet green background for panels and the light pattern."
+      },
+      {
+        "name": "leaf-tint",
+        "value": "#DDEFD0",
+        "usage": "Highlighted rows, selected states, pattern ink on mist."
+      },
+      {
+        "name": "amber-tint",
+        "value": "#FDF1D8",
+        "usage": "Notice boxes (\"prices valid until\"), promo flags behind ink or amber-deep text."
+      },
+      {
+        "name": "leaf-light",
+        "value": "#A8D672",
+        "usage": "Leaf on dark grounds (dark app icon, van rear). 3.5:1 on deep-green."
+      },
+      {
+        "name": "one-color-black",
+        "value": "#000000",
+        "usage": "The one-colour logo only (stamps, engraving, fax)."
+      }
+    ]
+  },
+  "type": {
+    "fonts": [
+      {
+        "family": "Readex Pro",
+        "file": "fonts/ReadexPro-Latin-400.woff2",
+        "weight": "400"
+      },
+      {
+        "family": "Readex Pro",
+        "file": "fonts/ReadexPro-Latin-600.woff2",
+        "weight": "600"
+      },
+      {
+        "family": "Readex Pro Arabic",
+        "file": "fonts/ReadexPro-Arabic-400.woff2",
+        "weight": "400"
+      },
+      {
+        "family": "Readex Pro Arabic",
+        "file": "fonts/ReadexPro-Arabic-600.woff2",
+        "weight": "600"
+      }
+    ],
+    "families": {
+      "brand": "\"Readex Pro\", \"Readex Pro Arabic\", system-ui, sans-serif",
+      "arabic": "\"Readex Pro Arabic\", \"Readex Pro\", system-ui, sans-serif"
+    },
+    "groups": [
+      {
+        "name": "English",
+        "family": "brand",
+        "styles": [
+          {
+            "name": "h1",
+            "fontSize": "40px",
+            "lineHeight": "48px",
+            "fontWeight": 600,
+            "letterSpacing": "-0.01em",
+            "sample": "Pumps, pipes and solar power",
+            "usage": "Page and cover titles. One per page."
+          },
+          {
+            "name": "h2",
+            "fontSize": "28px",
+            "lineHeight": "36px",
+            "fontWeight": 600,
+            "sample": "Authorized agent, every governorate",
+            "usage": "Section titles, catalog category names."
+          },
+          {
+            "name": "h3",
+            "fontSize": "20px",
+            "lineHeight": "28px",
+            "fontWeight": 600,
+            "sample": "Submersible pump, 1.5 HP",
+            "usage": "Card titles, product names, table titles."
+          },
+          {
+            "name": "body",
+            "fontSize": "16px",
+            "lineHeight": "26px",
+            "fontWeight": 400,
+            "sample": "Tormac submersible pumps and motors, Astral uPVC column pipes and LONGi solar panels, delivered to every governorate.",
+            "usage": "Running text, spec sheets, quotations (10 pt in print)."
+          },
+          {
+            "name": "caption",
+            "fontSize": "13px",
+            "lineHeight": "20px",
+            "fontWeight": 400,
+            "sample": "Bosla Industrial Complex, 6th of October City",
+            "usage": "Captions, table notes, legal lines (7.5–8 pt in print)."
+          }
+        ]
+      },
+      {
+        "name": "Arabic",
+        "family": "arabic",
+        "styles": [
+          {
+            "name": "h1-ar",
+            "fontSize": "40px",
+            "lineHeight": "60px",
+            "fontWeight": 600,
+            "sample": "طلمبات ومواسير وطاقة شمسية",
+            "usage": "Arabic page and cover titles; pairs with `h1`."
+          },
+          {
+            "name": "h2-ar",
+            "fontSize": "28px",
+            "lineHeight": "44px",
+            "fontWeight": 600,
+            "sample": "وكيل معتمد في كل المحافظات",
+            "usage": "Arabic section titles."
+          },
+          {
+            "name": "h3-ar",
+            "fontSize": "21px",
+            "lineHeight": "34px",
+            "fontWeight": 600,
+            "sample": "طلمبة غاطسة 1.5 حصان",
+            "usage": "Arabic card titles and product names."
+          },
+          {
+            "name": "body-ar",
+            "fontSize": "17px",
+            "lineHeight": "30px",
+            "fontWeight": 400,
+            "sample": "طلمبات تورماك الغاطسة ومواتيرها، ومواسير أسترال uPVC، وألواح لونجي الشمسية، بتوصيل لكل المحافظات.",
+            "usage": "Arabic running text: one step larger than `body`, looser leading."
+          },
+          {
+            "name": "caption-ar",
+            "fontSize": "14px",
+            "lineHeight": "22px",
+            "fontWeight": 400,
+            "sample": "المجمع الصناعي بوصلة، مدينة 6 أكتوبر",
+            "usage": "Arabic captions and notes."
+          }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "tokens": [
+      {
+        "name": "space-1",
+        "value": "4px",
+        "usage": "Icon-to-label gap."
+      },
+      {
+        "name": "space-2",
+        "value": "8px",
+        "usage": "Tight gaps inside controls."
+      },
+      {
+        "name": "space-3",
+        "value": "12px",
+        "usage": "Button padding (vertical), list gaps."
+      },
+      {
+        "name": "space-4",
+        "value": "16px",
+        "usage": "Card padding (mobile), page gutter."
+      },
+      {
+        "name": "space-6",
+        "value": "24px",
+        "usage": "Card padding (desktop), grid gutter."
+      },
+      {
+        "name": "space-8",
+        "value": "32px",
+        "usage": "Between groups inside a section."
+      },
+      {
+        "name": "space-12",
+        "value": "48px",
+        "usage": "Section spacing (mobile)."
+      },
+      {
+        "name": "space-20",
+        "value": "80px",
+        "usage": "Section spacing (desktop)."
+      }
+    ]
+  },
+  "radius": {
+    "tokens": [
+      {
+        "name": "radius-sm",
+        "value": "4px",
+        "usage": "Tags, inputs, table cells."
+      },
+      {
+        "name": "radius-md",
+        "value": "8px",
+        "usage": "Buttons, cards, panels."
+      },
+      {
+        "name": "radius-lg",
+        "value": "16px",
+        "usage": "Large promo panels and social templates."
+      },
+      {
+        "name": "radius-icon",
+        "value": "22%",
+        "usage": "App-icon and favicon tile corners."
+      }
+    ]
+  },
+  "shadow": {
+    "tokens": [
+      {
+        "name": "shadow-none",
+        "value": "none",
+        "usage": "The identity is flat: separate surfaces with `line` borders, not shadows."
+      }
+    ]
+  }
+}

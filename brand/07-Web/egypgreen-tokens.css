@@ -1,0 +1,60 @@
+/* EgypGreen design tokens v1.1 — every token as a CSS variable on :root.
+ * Load this file before egypgreen-web-kit.css. Font paths assume the kit folder structure (07-Web next to 06-Fonts). */
+
+@font-face { font-family: "Readex Pro"; src: url("../06-Fonts/ReadexPro-Latin-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Readex Pro"; src: url("../06-Fonts/ReadexPro-Latin-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Readex Pro Arabic"; src: url("../06-Fonts/ReadexPro-Arabic-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF; }
+@font-face { font-family: "Readex Pro Arabic"; src: url("../06-Fonts/ReadexPro-Arabic-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF; }
+
+:root {
+  /* Colour */
+  --deep-green: #1A7340;
+  --leaf-green: #5AA02E;
+  --pine: #0F4A2A;
+  --sun-amber: #F2A516;
+  --amber-deep: #9C5F00;
+  --ink: #1D2621;
+  --graphite: #3B4640;
+  --ink-muted: #5E6A63;
+  --stone: #8B968F;
+  --line: #D5DFD8;
+  --cloud: #F4F6F5;
+  --white: #FFFFFF;
+  --mist: #EEF5EA;
+  --leaf-tint: #DDEFD0;
+  --amber-tint: #FDF1D8;
+  --leaf-light: #A8D672;
+  --one-color-black: #000000;
+
+  /* Type families */
+  --font-brand: "Readex Pro", "Readex Pro Arabic", system-ui, sans-serif;
+  --font-arabic: "Readex Pro Arabic", "Readex Pro", system-ui, sans-serif;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-20: 80px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-icon: 22%;
+}
+
+/* Type styles */
+.h1 { font-family: var(--font-brand); font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.01em; }
+.h2 { font-family: var(--font-brand); font-size: 28px; line-height: 36px; font-weight: 600; }
+.h3 { font-family: var(--font-brand); font-size: 20px; line-height: 28px; font-weight: 600; }
+.body { font-family: var(--font-brand); font-size: 16px; line-height: 26px; font-weight: 400; }
+.caption { font-family: var(--font-brand); font-size: 13px; line-height: 20px; font-weight: 400; }
+.h1-ar { font-family: var(--font-arabic); font-size: 40px; line-height: 60px; font-weight: 600; }
+.h2-ar { font-family: var(--font-arabic); font-size: 28px; line-height: 44px; font-weight: 600; }
+.h3-ar { font-family: var(--font-arabic); font-size: 21px; line-height: 34px; font-weight: 600; }
+.body-ar { font-family: var(--font-arabic); font-size: 17px; line-height: 30px; font-weight: 400; }
+.caption-ar { font-family: var(--font-arabic); font-size: 14px; line-height: 22px; font-weight: 400; }

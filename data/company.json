@@ -1,0 +1,67 @@
+{
+  "_source": "Questionnaire answers + commercial register extract (printed 30 Aug 2026), read 5 Oct 2026. Personal names and national IDs from the register are deliberately NOT stored here.",
+  "brand": {
+    "en": "EgypGreen",
+    "ar": "ايجيب جرين",
+    "note": "Arabic brand name changed 5 Oct 2026 from ايجيبت جرين to ايجيب جرين to match the commercial register. Brand kit is being redone in Claude Design."
+  },
+  "legal": {
+    "nameAr": "ايجيب جرين لصناعة وتجارة الطلمبات",
+    "form": "ذات مسئولية محدودة (LLC), استثمار",
+    "commercialRegister": "31614",
+    "registerOffice": "مكتب سجل تجاري استثمار 6 أكتوبر",
+    "unifiedRegisterNumber": "11070 04400 31614",
+    "registeredOn": "2023-08-10",
+    "taxId": null,
+    "registeredAddressAr": "عمارة 321، المنطقة السياحية الرابعة، مدينة 6 أكتوبر، الجيزة",
+    "foundedYear": 2023,
+    "footerShowsRegisteredAddress": true
+  },
+  "contact": {
+    "phones": [
+      "+201068155336",
+      "+201000032359"
+    ],
+    "whatsappQuotes": "+201068155336",
+    "email": "info@egypgreen.com",
+    "emailActive": false,
+    "hours": "24/7",
+    "social": []
+  },
+  "location": {
+    "en": "Bosla Industrial Complex, Industrial Zone, 6th of October City, Giza, Egypt",
+    "ar": "المجمع الصناعي بوصلة، المنطقة الصناعية، مدينة 6 أكتوبر، الجيزة",
+    "geo": {
+      "latitude": 29.95614,
+      "longitude": 30.88579
+    }
+  },
+  "commercial": {
+    "delivery": "Every governorate; terms agreed with the sales team",
+    "installments": false,
+    "paymentTerms": "Agreed with the sales team",
+    "warrantyDuration": null,
+    "installation": false,
+    "afterSalesShownOnSite": false
+  },
+  "products": {
+    "pumps": "Tormac TS stainless-steel submersible pumps + Tormac ECO submersible motors (no Tormac surface pumps)",
+    "pipes": "Astral Bore-Well uPVC column pipes (one product)",
+    "solar": "LONGi solar panels (one product, 7 models)",
+    "authorizedAgent": [
+      "Tormac",
+      "Astral",
+      "LONGi"
+    ]
+  },
+  "site": {
+    "domain": "egypgreen.com",
+    "adminPanel": false,
+    "quoteFlow": "Quote cart opens a pre-filled WhatsApp chat to whatsappQuotes",
+    "defaultLanguage": "ar",
+    "languages": [
+      "ar",
+      "en"
+    ]
+  }
+}

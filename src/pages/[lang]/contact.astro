@@ -1,0 +1,152 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import Icon from "@/components/Icon.astro";
+import { company, displayPhone, waLink } from "@/data/company";
+import { businessSchema } from "@/lib/schema";
+import { href, langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const { latitude: lat, longitude: lng } = company.geo;
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+const mapEmbed = `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed&hl=${lang}`;
+
+const c = {
+  ar: {
+    title: "اتصل بنا",
+    lead: "فريق المبيعات متاح 24 ساعة طوال أيام الأسبوع. أسرع طريقة للحصول على عرض سعر هي واتساب.",
+    desc: "تواصل مع ايجيب جرين بالتليفون أو واتساب على مدار 24 ساعة. المخزن في المجمع الصناعي بوصلة، المنطقة الصناعية، 6 أكتوبر.",
+    waT: "واتساب",
+    waP: "أرسل طلبك أو سؤالك، ويرد عليك فريق المبيعات.",
+    phoneT: "التليفون",
+    visitT: "المخزن",
+    directions: "الاتجاهات على خرائط Google",
+    mapTitle: "موقع مخزن ايجيب جرين على الخريطة",
+    showMap: "اعرض الخريطة",
+    mapNote: "تُحمَّل الخريطة من خرائط Google عند الضغط.",
+    tipsH: "عشان نرد عليك أسرع",
+    tips: [
+      "اذكر المنتج والمقاس أو القدرة والكمية.",
+      "للطلمبات: قطر البئر وعمق المياه والتصرف المطلوب.",
+      "اذكر المحافظة والمدينة لترتيب التوصيل.",
+    ],
+    quoteCta: "أو كوّن طلبك من السلة",
+    emailSoon: "البريد الإلكتروني",
+  },
+  en: {
+    title: "Contact us",
+    lead: "Our sales team is available 24 hours a day, every day of the week. WhatsApp is the fastest way to get a quote.",
+    desc: "Contact EgypGreen by phone or WhatsApp, 24 hours a day. Warehouse at Bosla Industrial Complex, Industrial Zone, 6th of October City.",
+    waT: "WhatsApp",
+    waP: "Send your request or question and our sales team replies.",
+    phoneT: "Phone",
+    visitT: "Warehouse",
+    directions: "Directions on Google Maps",
+    mapTitle: "Map showing the EgypGreen warehouse",
+    showMap: "Show the map",
+    mapNote: "The map loads from Google Maps when you press the button.",
+    tipsH: "To help us reply faster",
+    tips: [
+      "Mention the product, size or power, and quantity.",
+      "For pumps: well diameter, water depth and required flow.",
+      "Mention your governorate and city so we can arrange delivery.",
+    ],
+    quoteCta: "Or build your request in the cart",
+    emailSoon: "Email",
+  },
+}[lang];
+---
+<Base lang={lang} title={c.title} description={c.desc} jsonLd={[businessSchema(lang)]}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.contact }]} />
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="stack">
+        <a href={waLink(d.common.waGreeting)} class="card contact-card contact-card--wa" rel="noopener" target="_blank">
+          <span class="card__icon"><Icon name="whatsapp" size={26} /></span>
+          <span class="stack" style="gap:4px">
+            <span class="card__title">{c.waT}</span>
+            <span class="ltr contact-num">{displayPhone(company.whatsapp)}</span>
+            <span class="card__text">{c.waP}</span>
+          </span>
+        </a>
+
+        <div class="card contact-card">
+          <span class="card__icon"><Icon name="phone" size={24} /></span>
+          <span class="stack" style="gap:4px">
+            <span class="card__title">{c.phoneT}</span>
+            {company.phones.map((p) => <a href={`tel:${p}`} class="ltr contact-num">{displayPhone(p)}</a>)}
+            <span class="card__text">{d.common.hoursValue}</span>
+          </span>
+        </div>
+
+        {company.emailActive && (
+          <div class="card contact-card">
+            <span class="card__icon"><Icon name="email" size={24} /></span>
+            <span class="stack" style="gap:4px">
+              <span class="card__title">{c.emailSoon}</span>
+              <a href={`mailto:${company.email}`} class="contact-num">{company.email}</a>
+            </span>
+          </div>
+        )}
+
+        <div class="card contact-card">
+          <span class="card__icon"><Icon name="pin" size={24} /></span>
+          <span class="stack" style="gap:4px">
+            <span class="card__title">{c.visitT}</span>
+            <span>{company.address[lang]}</span>
+            <a href={mapsLink} rel="noopener" target="_blank">{c.directions}</a>
+          </span>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="map" data-map={mapEmbed} data-title={c.mapTitle}>
+          <div class="map__placeholder">
+            <Icon name="pin" size={36} />
+            <p>{company.address[lang]}</p>
+            <button type="button" class="btn btn--primary" data-map-load>{c.showMap}</button>
+            <p class="map__note">{c.mapNote}</p>
+          </div>
+        </div>
+        <div class="card card--mist">
+          <h2 class="card__title">{c.tipsH}</h2>
+          <ul class="checklist">
+            {c.tips.map((x) => <li><Icon name="check" size={18} /><span>{x}</span></li>)}
+          </ul>
+          <a href={href(lang, "/quote")} class="btn btn--primary" style="align-self:flex-start;margin-top:8px"><Icon name="cart" size={20} />{c.quoteCta}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Load the Google map only on request, so no third-party requests happen on page load.
+  document.querySelector<HTMLButtonElement>("[data-map-load]")?.addEventListener("click", () => {
+    const box = document.querySelector<HTMLElement>("[data-map]")!;
+    const frame = document.createElement("iframe");
+    frame.src = box.dataset.map!;
+    frame.title = box.dataset.title!;
+    frame.allowFullscreen = true;
+    frame.referrerPolicy = "no-referrer-when-downgrade";
+    box.replaceChildren(frame);
+  });
+</script>
+
+<style>
+  .map__placeholder { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center; color: var(--deep-green); background: var(--mist) url("/patterns/egypgreen-pattern-mist.svg") repeat; background-size: 120px; }
+  .map__placeholder p { color: var(--ink); max-width: 360px; }
+  .map__placeholder .map__note { font-size: 13px; color: var(--ink-muted); }
+  .contact-grid { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .contact-grid { grid-template-columns: 1fr 1.3fr; gap: 48px; align-items: start; } }
+  .contact-card { flex-direction: row; align-items: flex-start; gap: 16px; }
+  a.contact-card { color: inherit; text-decoration: none; }
+  .contact-card--wa { border-color: var(--deep-green); }
+  .contact-card--wa:hover { background: var(--mist); }
+  .contact-num { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--deep-green); text-decoration: none; font-family: var(--font-brand); }
+  .map { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 4 / 3; background: var(--cloud); }
+  .map iframe { width: 100%; height: 100%; border: 0; display: block; }
+</style>

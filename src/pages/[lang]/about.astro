@@ -1,0 +1,154 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import Icon from "@/components/Icon.astro";
+import { company } from "@/data/company";
+import { langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+
+const c = {
+  ar: {
+    title: "من نحن",
+    lead: "ايجيب جرين مستورد ووكيل معتمد لثلاث علامات عالمية في الطلمبات الغاطسة ومواسير الآبار والألواح الشمسية، مقرنا مدينة 6 أكتوبر ونوصل لكل محافظات مصر.",
+    desc: "تعرف على ايجيب جرين: مستورد ووكيل معتمد لطلمبات Tormac ومواسير Astral وألواح LONGi الشمسية منذ 2023، مع توصيل لكل المحافظات.",
+    storyH: "قصتنا",
+    story: [
+      "تأسست ايجيب جرين في 2023 بمدينة 6 أكتوبر بهدف واضح: أن يجد المزارع والمقاول وصاحب المصنع منتجات أصلية لمنظومة البئر عند وكيل واحد، بمواصفات واضحة وسعر منافس.",
+      "اخترنا 3 علامات تغطي المنظومة من أسفل البئر إلى مصدر الطاقة: طلمبات ومواتير Tormac الغاطسة، ومواسير Astral التي تحمل الطلمبة، وألواح LONGi التي تشغلها بالطاقة الشمسية. نستورد مباشرة من المصنع ونحتفظ بالمخزون في 6 أكتوبر، ونوصل منه لكل المحافظات.",
+      "دورنا التوريد والتوزيع. نساعدك تختار المقاس والقدرة المناسبين من بيانات البئر، ونوصل الطلب في الموعد المتفق عليه.",
+    ],
+    missionH: "رسالتنا",
+    mission: "نوصل منتجات أصلية لمنظومات المياه الجوفية والطاقة الشمسية إلى العملاء في كل محافظات مصر، بسعر منافس ومعلومة فنية دقيقة.",
+    visionH: "رؤيتنا",
+    vision: "أن نكون الوكيل الذي يرجع له المزارع والمقاول والموزع أولًا عند شراء مكونات البئر والطاقة الشمسية في مصر.",
+    valuesH: "قيمنا",
+    values: [
+      { icon: "badge", t: "الأصالة", p: "منتجات أصلية من المصنع فقط، بضمان الوكيل المعتمد." },
+      { icon: "doc", t: "الوضوح", p: "مواصفات وأرقام من كتالوجات المصنعين، بدون مبالغة." },
+      { icon: "clock", t: "السرعة", p: "رد في أي وقت على مدار 24 ساعة، وتوصيل في الموعد المتفق عليه." },
+      { icon: "shield", t: "الشراكة", p: "علاقة طويلة مع العملاء والموزعين، تبدأ من أول طلب." },
+    ],
+    serveH: "من نخدم",
+    serve: ["المزارعون وأصحاب الأراضي المستصلحة", "المزارع والشركات الزراعية", "المنازل والفيلات والمجمعات السكنية", "المصانع والمنشآت الصناعية", "مقاولو حفر الآبار والمشروعات", "التجار والموزعون"],
+    legalH: "البيانات القانونية",
+    legal: [
+      ["الاسم القانوني", `${company.legal.nameAr} (ش.ذ.م.م)`],
+      ["السجل التجاري", `${company.legal.commercialRegister} · مكتب سجل تجاري استثمار 6 أكتوبر`],
+      ["تاريخ القيد", "10 أغسطس 2023"],
+      ["العنوان المسجل", company.registeredAddress.ar],
+      ["المخزن والإدارة", company.address.ar],
+    ],
+  },
+  en: {
+    title: "About us",
+    lead: "EgypGreen is an importer and authorized agent for three international brands of submersible pumps, bore-well pipes and solar panels, based in 6th of October City and delivering to every governorate in Egypt.",
+    desc: "About EgypGreen: importer and authorized agent for Tormac pumps, Astral pipes and LONGi solar panels since 2023, delivering to every governorate.",
+    storyH: "Our story",
+    story: [
+      "EgypGreen was founded in 2023 in 6th of October City with a clear aim: that farmers, contractors and factory owners can find genuine parts for a well system at one agent, with clear specifications and a competitive price.",
+      "We chose 3 brands that cover the system from the bottom of the well to the power source: Tormac submersible pumps and motors, the Astral pipes that carry the pump, and the LONGi panels that run it on solar power. We import direct from the factory, hold stock in 6th of October, and deliver from there to every governorate.",
+      "Our role is supply and distribution. We help you choose the right size and power from your well data, and deliver the order on the agreed date.",
+    ],
+    missionH: "Our mission",
+    mission: "To bring genuine groundwater and solar products to customers in every governorate of Egypt, at a competitive price and with accurate technical information.",
+    visionH: "Our vision",
+    vision: "To be the agent that farmers, contractors and dealers turn to first when buying well and solar components in Egypt.",
+    valuesH: "Our values",
+    values: [
+      { icon: "badge", t: "Genuine", p: "Only genuine factory products, with authorized-agent warranty." },
+      { icon: "doc", t: "Clear", p: "Specifications and figures from the manufacturers' catalogues, without exaggeration." },
+      { icon: "clock", t: "Responsive", p: "Replies at any hour, 24 hours a day, and delivery on the agreed date." },
+      { icon: "shield", t: "Partnership", p: "Long-term relationships with customers and dealers, starting with the first order." },
+    ],
+    serveH: "Who we serve",
+    serve: ["Farmers and owners of reclaimed land", "Farms and agricultural companies", "Homes, villas and residential compounds", "Factories and industrial facilities", "Well-drilling and project contractors", "Traders and dealers"],
+    legalH: "Legal details",
+    legal: [
+      ["Legal name", `${company.legal.nameAr} (LLC)`],
+      ["Commercial register", `${company.legal.commercialRegister} · 6th of October Investment Office`],
+      ["Registered on", "10 August 2023"],
+      ["Registered address", company.registeredAddress.en],
+      ["Warehouse and office", company.address.en],
+    ],
+  },
+}[lang];
+
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: c.title,
+  about: { "@id": `${company.site}/#organization` },
+};
+---
+<Base lang={lang} title={c.title} description={c.desc} jsonLd={[orgLd]}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.about }]} />
+
+  <section class="section">
+    <div class="container about-grid">
+      <div class="stack prose-narrow">
+        <h2>{c.storyH}</h2>
+        {c.story.map((p) => <p>{p}</p>)}
+      </div>
+      <div class="stack">
+        <div class="card mv">
+          <h2 class="mv__h">{c.missionH}</h2>
+          <p>{c.mission}</p>
+        </div>
+        <div class="card mv">
+          <h2 class="mv__h">{c.visionH}</h2>
+          <p>{c.vision}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section-head"><h2>{c.valuesH}</h2></div>
+      <div class="grid grid--4">
+        {c.values.map((v) => (
+          <div class="card">
+            <span class="card__icon"><Icon name={v.icon} size={24} /></span>
+            <h3 class="card__title">{v.t}</h3>
+            <p class="card__text">{v.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-grid">
+      <div class="stack">
+        <h2>{c.serveH}</h2>
+        <ul class="checklist">
+          {c.serve.map((s) => <li><Icon name="check" size={18} /><span>{s}</span></li>)}
+        </ul>
+      </div>
+      <div class="stack">
+        <h2>{c.legalH}</h2>
+        <div class="table-wrap">
+          <table class="table">
+            <tbody>
+              {c.legal.map(([k, v]) => <tr><th scope="row">{k}</th><td lang={k.startsWith("Legal") ? "ar" : undefined}>{v}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Base>
+
+<style>
+  .about-grid { display: grid; gap: 40px; }
+  @media (min-width: 960px) { .about-grid { grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; } }
+  .mv { border-inline-start: 4px solid var(--deep-green); }
+  .mv__h { font-size: 20px; line-height: 28px; color: var(--deep-green); }
+  .table td { white-space: normal; }
+</style>

@@ -1,0 +1,224 @@
+---
+import Icon from "./Icon.astro";
+import { company, displayPhone } from "@/data/company";
+import { href, otherLang, switchPath, t, type Lang } from "@/i18n";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const path = Astro.url.pathname;
+const other = otherLang(lang);
+
+const products = [
+  { label: d.nav.pumps, to: "/pumps", icon: "pump" },
+  { label: d.nav.pipes, to: "/pipes", icon: "pipe" },
+  { label: d.nav.solar, to: "/solar", icon: "panel" },
+];
+const links = [
+  { label: d.nav.brands, to: "/brands" },
+  { label: d.nav.applications, to: "/applications" },
+  { label: d.nav.catalogs, to: "/catalogs" },
+  { label: d.nav.articles, to: "/articles" },
+  { label: d.nav.about, to: "/about" },
+  { label: d.nav.contact, to: "/contact" },
+];
+
+const isActive = (to: string) => path.startsWith(href(lang, to));
+const productsActive =
+  products.some((p) => isActive(p.to)) || path.startsWith(href(lang, "/products"));
+const logo = lang === "ar" ? "egypgreen-lockup-ar-en-color.svg" : "egypgreen-lockup-en-ar-color.svg";
+---
+<header class="site-header">
+  <div class="topbar">
+    <div class="container topbar__in">
+      <div class="topbar__group">
+        {company.phones.map((p, i) => (
+          <a href={`tel:${p}`} class:list={["topbar__item", { "hide-sm": i > 0 }]}>
+            <Icon name="phone" size={16} />
+            <span class="ltr">{displayPhone(p)}</span>
+          </a>
+        ))}
+      </div>
+      <div class="topbar__group">
+        <span class="topbar__item hide-sm"><Icon name="truck" size={16} />{d.header.delivery}</span>
+        <span class="topbar__item"><Icon name="clock" size={16} />{d.header.hours}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mainbar">
+    <a href={href(lang)} class="mainbar__logo" aria-label={d.meta.siteName}>
+      <img src={`/logo/${logo}`} alt={d.meta.siteName} width="134" height="48" />
+    </a>
+
+    <nav class="nav" aria-label={d.nav.home}>
+      <ul class="nav__list">
+        <li class="nav__item nav__item--menu">
+          <button type="button" class:list={["nav__link", { "is-active": productsActive }]} aria-expanded="false" aria-controls="products-menu" data-menu-btn>
+            {d.nav.products}
+            <Icon name="chevron" size={16} class="nav__caret" />
+          </button>
+          <ul class="nav__sub" id="products-menu">
+            {products.map((p) => (
+              <li>
+                <a href={href(lang, p.to)} class:list={{ "is-active": isActive(p.to) }}>
+                  <span class="nav__sub-icon"><Icon name={p.icon} size={22} /></span>
+                  {p.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+        {links.map((l) => (
+          <li class="nav__item">
+            <a href={href(lang, l.to)} class:list={["nav__link", { "is-active": isActive(l.to) }]} aria-current={isActive(l.to) ? "page" : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="mainbar__actions">
+      <a href={switchPath(path, other)} class="lang-switch" hreflang={other} lang={other} aria-label={d.header.switchLangLabel}>
+        {d.header.switchLang}
+      </a>
+      <a href={href(lang, "/quote")} class="cart-btn" aria-label={d.header.cart}>
+        <Icon name="cart" size={22} />
+        <span class="cart-btn__label">{d.nav.quote}</span>
+        <span class="cart-badge" data-cart-count hidden>0</span>
+      </a>
+      <button type="button" class="menu-btn" aria-expanded="false" aria-controls="mobile-nav" data-mobile-btn>
+        <Icon name="menu" size={24} class="menu-btn__open" />
+        <Icon name="close" size={24} class="menu-btn__close" />
+        <span class="sr-only">{d.header.menu}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <div class="container">
+      <p class="mobile-nav__heading">{d.nav.products}</p>
+      <ul class="mobile-nav__products">
+        {products.map((p) => (
+          <li><a href={href(lang, p.to)}><span class="nav__sub-icon"><Icon name={p.icon} size={22} /></span>{p.label}</a></li>
+        ))}
+      </ul>
+      <ul class="mobile-nav__links">
+        {links.map((l) => <li><a href={href(lang, l.to)} aria-current={isActive(l.to) ? "page" : undefined}>{l.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { cart, renderBadges } from "@/scripts/cart";
+  renderBadges();
+  cart.onChange(renderBadges);
+
+  // Desktop products menu: click toggles, Escape and outside click close.
+  const btn = document.querySelector<HTMLButtonElement>("[data-menu-btn]");
+  const item = btn?.closest(".nav__item--menu");
+  const setMenu = (open: boolean) => {
+    btn?.setAttribute("aria-expanded", String(open));
+    item?.classList.toggle("is-open", open);
+  };
+  btn?.addEventListener("click", () => setMenu(btn.getAttribute("aria-expanded") !== "true"));
+  document.addEventListener("click", (e) => {
+    if (item && !item.contains(e.target as Node)) setMenu(false);
+  });
+
+  // Mobile menu.
+  const mBtn = document.querySelector<HTMLButtonElement>("[data-mobile-btn]");
+  const mNav = document.getElementById("mobile-nav");
+  const setMobile = (open: boolean) => {
+    mBtn?.setAttribute("aria-expanded", String(open));
+    if (mNav) mNav.hidden = !open;
+    document.documentElement.classList.toggle("menu-open", open);
+  };
+  mBtn?.addEventListener("click", () => setMobile(mBtn.getAttribute("aria-expanded") !== "true"));
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    setMenu(false);
+    setMobile(false);
+  });
+</script>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; background: var(--white); border-block-end: 1px solid var(--line); }
+
+  .topbar { background: var(--deep-green); color: var(--white); font-size: 13px; line-height: 20px; }
+  .topbar__in { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 34px; }
+  .topbar__group { display: flex; gap: 20px; align-items: center; }
+  .topbar__item { display: inline-flex; gap: 6px; align-items: center; color: var(--white); text-decoration: none; }
+  a.topbar__item:hover { color: var(--leaf-tint); }
+  @media (max-width: 639px) { .hide-sm { display: none; } }
+
+  .mainbar { display: flex; align-items: center; gap: 24px; min-height: 72px; }
+  .mainbar__logo { flex: none; display: block; }
+  .mainbar__logo img { height: 44px; width: auto; }
+  @media (max-width: 479px) { .mainbar__logo img { height: 38px; } }
+
+  .nav { flex: 1; display: none; }
+  @media (min-width: 1180px) { .nav { display: block; } }
+  .nav__list { list-style: none; margin: 0; padding: 0; display: flex; gap: 22px; align-items: center; }
+  .nav__item { position: relative; }
+  .nav__link {
+    display: inline-flex; align-items: center; gap: 4px; padding: 24px 0 22px; border: 0; background: none;
+    border-block-end: 2px solid transparent; color: var(--ink); text-decoration: none; font: inherit; font-size: 15px; cursor: pointer;
+  }
+  :global(html[lang="ar"]) .nav__link { font-size: 16px; }
+  .nav__link:hover { color: var(--deep-green); }
+  .nav__link.is-active { color: var(--deep-green); border-color: var(--deep-green); font-weight: 600; }
+  :global(.nav__caret svg) { transform: rotate(90deg); transition: transform 0.15s; }
+  .nav__item--menu.is-open :global(.nav__caret svg) { transform: rotate(-90deg); }
+
+  .nav__sub {
+    list-style: none; margin: 0; padding: 8px; position: absolute; inset-block-start: 100%; inset-inline-start: -12px; min-width: 260px;
+    background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-md); display: none;
+  }
+  .nav__item--menu.is-open .nav__sub { display: grid; gap: 2px; }
+  .nav__sub a { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: var(--radius-md); color: var(--ink); text-decoration: none; }
+  .nav__sub a:hover, .nav__sub a.is-active { background: var(--mist); color: var(--deep-green); }
+  .nav__sub-icon { width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--mist); color: var(--deep-green); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+  .nav__sub a:hover .nav__sub-icon { background: var(--white); }
+
+  .mainbar__actions { display: flex; align-items: center; gap: 10px; margin-inline-start: auto; }
+  .lang-switch {
+    font-size: 14px; line-height: 20px; font-weight: 600; color: var(--deep-green); border: 1px solid var(--line);
+    border-radius: var(--radius-sm); padding: 6px 10px; text-decoration: none; min-height: 36px; display: inline-flex; align-items: center;
+  }
+  .lang-switch:lang(ar) { font-family: var(--font-arabic); }
+  .lang-switch:lang(en) { font-family: var(--font-brand); }
+  .lang-switch:hover { border-color: var(--deep-green); }
+
+  .cart-btn {
+    position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px;
+    border-radius: var(--radius-md); background: var(--deep-green); color: var(--white); text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+  .cart-btn:hover { background: var(--pine); color: var(--white); }
+  @media (max-width: 767px) { .cart-btn__label { display: none; } .cart-btn { padding: 8px 10px; } }
+  .cart-badge {
+    min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--sun-amber); color: var(--ink);
+    font-size: 12px; line-height: 22px; font-weight: 600; text-align: center; font-family: var(--font-brand);
+  }
+  @media (max-width: 767px) { .cart-badge { position: absolute; inset-block-start: -6px; inset-inline-end: -6px; } }
+
+  .menu-btn {
+    display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line);
+    border-radius: var(--radius-md); background: var(--white); color: var(--ink); cursor: pointer;
+  }
+  @media (min-width: 1180px) { .menu-btn { display: none; } }
+  .menu-btn :global(.menu-btn__close) { display: none; }
+  .menu-btn[aria-expanded="true"] :global(.menu-btn__open) { display: none; }
+  .menu-btn[aria-expanded="true"] :global(.menu-btn__close) { display: inline-flex; }
+
+  .mobile-nav { border-block-start: 1px solid var(--line); background: var(--white); max-height: calc(100vh - 106px); overflow-y: auto; padding-block: 16px 24px; }
+  @media (min-width: 1180px) { .mobile-nav { display: none; } }
+  .mobile-nav__heading { font-size: 13px; color: var(--ink-muted); margin-block-end: 8px; }
+  .mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .mobile-nav__products { display: grid; gap: 8px; margin-block-end: 16px; }
+  .mobile-nav__products a { display: flex; align-items: center; gap: 12px; padding: 8px; border: 1px solid var(--line); border-radius: var(--radius-md); color: var(--ink); text-decoration: none; font-weight: 600; }
+  .mobile-nav__links a { display: block; padding: 12px 4px; border-block-end: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+  .mobile-nav__links a[aria-current] { color: var(--deep-green); font-weight: 600; }
+  :global(html.menu-open) { overflow: hidden; }
+</style>

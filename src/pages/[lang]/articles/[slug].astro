@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import ProductCard from "@/components/ProductCard.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import { company } from "@/data/company";
+import { productBySlug } from "@/data/products";
+import { formatDate, readingMinutes, splitId } from "@/lib/content";
+import { href, t, type Lang } from "@/i18n";
+
+export async function getStaticPaths() {
+  const all = await getCollection("articles");
+  return all.map((entry) => {
+    const { lang, slug } = splitId(entry.id);
+    return { params: { lang, slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const { Content } = await render(entry);
+const related = entry.data.products.map(productBySlug);
+const ui = lang === "ar" ? { min: "دقائق قراءة", products: "منتجات ذكرناها في المقال" } : { min: "min read", products: "Products in this article" };
+const url = new URL(href(lang, `/articles/${splitId(entry.id).slug}`), company.site).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.date.toISOString().slice(0, 10),
+  dateModified: (entry.data.updated ?? entry.data.date).toISOString().slice(0, 10),
+  inLanguage: lang === "ar" ? "ar-EG" : "en",
+  mainEntityOfPage: url,
+  author: { "@id": `${company.site}/#organization` },
+  publisher: { "@id": `${company.site}/#organization` },
+};
+---
+<Base lang={lang} title={entry.data.title} description={entry.data.description} type="article" jsonLd={[jsonLd]}>
+  <PageHero lang={lang} title={entry.data.title} lead={entry.data.description} crumbs={[{ label: d.nav.articles, to: "/articles" }, { label: entry.data.title }]}>
+    <p class="muted article-meta">{formatDate(entry.data.date, lang)} · {readingMinutes(entry.body, lang)} {ui.min}</p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <article class="prose" data-prose>
+        <Content />
+      </article>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section section--mist">
+      <div class="container">
+        <div class="section-head"><h2>{ui.products}</h2></div>
+        <div class="grid grid--3">
+          {related.map((p) => <ProductCard product={p} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand lang={lang} />
+</Base>
+
+<script>
+  // Wide markdown tables scroll on small screens instead of overflowing the page.
+  document.querySelectorAll("[data-prose] table").forEach((table) => {
+    const wrap = document.createElement("div");
+    wrap.className = "table-scroll";
+    table.replaceWith(wrap);
+    wrap.append(table);
+  });
+</script>
+
+<style>
+  .article-meta { font-size: 14px; }
+</style>

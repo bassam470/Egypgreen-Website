@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.claude/settings.local.json
+
+# Local-only working files (sources and internal notes)
+handoff.md
+discovery/
+Images/
+catalog-sources/
+docs/build-plan.md
+brand/EgypGreen-Brand-Identity.pdf

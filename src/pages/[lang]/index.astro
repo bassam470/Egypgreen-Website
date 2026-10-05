@@ -1,0 +1,271 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import Icon from "@/components/Icon.astro";
+import { applications } from "@/data/applications";
+import { brands } from "@/data/brands";
+import { waLink } from "@/data/company";
+import { businessSchema, websiteSchema } from "@/lib/schema";
+import { inLang, splitId } from "@/lib/content";
+import { href, langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const latest = inLang(await getCollection("articles"), lang)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const c = {
+  ar: {
+    title: "",
+    eyebrow: "وكيل معتمد لـ Tormac وAstral وLONGi",
+    h1: "طلمبات غاطسة ومواسير آبار وألواح شمسية، من الوكيل المعتمد مباشرة",
+    lead: "نستورد ونوزع 3 علامات عالمية لمنظومات المياه الجوفية والطاقة الشمسية، مع توصيل لكل محافظات مصر وفريق مبيعات متاح 24 ساعة.",
+    browse: "تصفح المنتجات",
+    facts: [
+      { v: "3", l: "علامات بتوكيل معتمد" },
+      { v: "870 م", l: "أقصى رفع لطلمبات Tormac" },
+      { v: "24/7", l: "فريق المبيعات متاح" },
+      { v: "2023", l: "سنة التأسيس" },
+    ],
+    linesH: "خطوط المنتجات",
+    linesP: "3 خطوط تغطي منظومة البئر كاملة: الطلمبة والموتور، وماسورة العمود، ومصدر الطاقة.",
+    lines: [
+      { to: "/pumps", img: "/images/products/tormac-ts-pumps-card.webp", brand: "Tormac", t: "طلمبات ومواتير غاطسة", p: "طلمبات استانلس لآبار 4 إلى 10 بوصة، ومواتير حتى 150 حصان." },
+      { to: "/pipes", img: "/images/products/astral-bore-well-pipes-card.webp", brand: "Astral", t: "مواسير آبار uPVC", p: "مواسير أعمدة خالية من الرصاص، من 1 إلى 5 بوصة ورفع حتى 400 متر." },
+      { to: "/solar", img: "/images/products/longi-panel-angle-card.webp", brand: "LONGi", t: "ألواح شمسية", p: "7 موديلات من 440 إلى 670 وات، بكفاءة حتى 24.8%." },
+    ],
+    whyH: "لماذا ايجيب جرين",
+    why: [
+      { icon: "badge", t: "وكيل معتمد", p: "منتجات أصلية من المصنع مباشرة، بضمان الوكيل المعتمد." },
+      { icon: "truck", t: "توصيل لكل المحافظات", p: "نوصل الطلبات من مخزننا في 6 أكتوبر إلى أي محافظة، بمواعيد متفق عليها مع المبيعات." },
+      { icon: "phone", t: "مبيعات 24 ساعة", p: "تواصل معنا بالتليفون أو واتساب في أي وقت، 7 أيام في الأسبوع." },
+      { icon: "shield", t: "أسعار تنافسية", p: "الاستيراد المباشر من المصنع يعني سعرًا أفضل لنفس الجودة." },
+    ],
+    brandsH: "الوكالات",
+    brandsLink: "عن الوكالات",
+    appsH: "الاستخدامات",
+    appsLink: "كل الاستخدامات",
+    articlesH: "أدلة ومقالات",
+    articlesLink: "كل المقالات",
+    howH: "اطلب عرض سعر في 3 خطوات",
+    how: [
+      { t: "اختر المنتج", p: "حدد المقاس والقدرة أو الفئة من صفحة المنتج." },
+      { t: "أضفه إلى السلة", p: "اجمع كل ما تحتاجه في سلة عرض السعر، بالكميات." },
+      { t: "أرسل على واتساب", p: "تُفتح رسالة جاهزة بطلبك، ويرد عليك فريق المبيعات بالسعر والتوصيل." },
+    ],
+  },
+  en: {
+    title: "",
+    eyebrow: "Authorized agent for Tormac, Astral and LONGi",
+    h1: "Submersible pumps, bore-well pipes and solar panels, direct from the authorized agent",
+    lead: "We import and distribute 3 international brands for groundwater and solar systems, with delivery to every governorate in Egypt and a sales team available 24 hours a day.",
+    browse: "Browse products",
+    facts: [
+      { v: "3", l: "Brands under authorized agency" },
+      { v: "870 m", l: "Max head of Tormac pumps" },
+      { v: "24/7", l: "Sales team available" },
+      { v: "2023", l: "Founded" },
+    ],
+    linesH: "Product lines",
+    linesP: "3 lines that cover the whole well system: pump and motor, column pipe and power source.",
+    lines: [
+      { to: "/pumps", img: "/images/products/tormac-ts-pumps-card.webp", brand: "Tormac", t: "Submersible pumps and motors", p: "Stainless pumps for 4 to 10 inch wells, and motors up to 150 HP." },
+      { to: "/pipes", img: "/images/products/astral-bore-well-pipes-card.webp", brand: "Astral", t: "uPVC bore-well pipes", p: "Lead-free column pipes from 1 to 5 inches, for heads up to 400 m." },
+      { to: "/solar", img: "/images/products/longi-panel-angle-card.webp", brand: "LONGi", t: "Solar panels", p: "7 models from 440 to 670 W, with efficiency up to 24.8%." },
+    ],
+    whyH: "Why EgypGreen",
+    why: [
+      { icon: "badge", t: "Authorized agent", p: "Genuine products direct from the manufacturer, with authorized-agent warranty." },
+      { icon: "truck", t: "Delivery to every governorate", p: "We ship from our 6th of October warehouse to any governorate, on dates agreed with sales." },
+      { icon: "phone", t: "Sales 24 hours a day", p: "Reach us by phone or WhatsApp at any time, 7 days a week." },
+      { icon: "shield", t: "Competitive prices", p: "Importing direct from the factory means a better price for the same quality." },
+    ],
+    brandsH: "Brands",
+    brandsLink: "About our brands",
+    appsH: "Applications",
+    appsLink: "All applications",
+    articlesH: "Guides and articles",
+    articlesLink: "All articles",
+    howH: "Get a quote in 3 steps",
+    how: [
+      { t: "Pick the product", p: "Choose the size and power or class on the product page." },
+      { t: "Add it to the cart", p: "Collect everything you need in the quote cart, with quantities." },
+      { t: "Send on WhatsApp", p: "A ready message with your request opens, and sales replies with price and delivery." },
+    ],
+  },
+}[lang];
+---
+<Base lang={lang} jsonLd={[businessSchema(lang), websiteSchema(lang)]}>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">{c.eyebrow}</p>
+        <h1>{c.h1}</h1>
+        <p class="lead">{c.lead}</p>
+        <div class="row hero__ctas">
+          <a href="#lines" class="btn btn--primary">{c.browse}<Icon name="arrow" size={18} flip /></a>
+          <a href={waLink(d.common.waGreeting)} class="btn btn--secondary" rel="noopener" target="_blank"><Icon name="whatsapp" size={20} />{d.common.whatsappUs}</a>
+        </div>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__tile hero__tile--pump"><img src="/images/products/tormac-ts-pumps.webp" alt="" width="1000" height="1000" fetchpriority="high" /></div>
+        <div class="hero__tile hero__tile--panel"><img src="/images/products/longi-panel-angle.webp" alt="" width="1000" height="1000" /></div>
+        <div class="hero__tile hero__tile--pipe"><img src="/images/products/astral-bore-well-pipes.webp" alt="" width="1000" height="1000" /></div>
+      </div>
+    </div>
+    <div class="container">
+      <dl class="facts">
+        {c.facts.map((f) => <div class="fact"><dt>{f.l}</dt><dd>{f.v}</dd></div>)}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="lines">
+    <div class="container">
+      <div class="section-head"><h2>{c.linesH}</h2><p>{c.linesP}</p></div>
+      <div class="grid grid--3">
+        {c.lines.map((l) => (
+          <a href={href(lang, l.to)} class="pcard">
+            <div class="pcard__img"><img src={l.img} alt="" width="800" height="600" loading="lazy" /></div>
+            <div class="pcard__body">
+              <span class="pcard__brand">{l.brand}</span>
+              <h3 class="pcard__name">{l.t}</h3>
+              <p class="card__text">{l.p}</p>
+              <span class="pcard__foot">{d.common.readMore}<Icon name="arrow" size={18} flip /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section-head"><h2>{c.whyH}</h2></div>
+      <div class="grid grid--4">
+        {c.why.map((w) => (
+          <div class="card">
+            <span class="card__icon"><Icon name={w.icon} size={24} /></span>
+            <h3 class="card__title">{w.t}</h3>
+            <p class="card__text">{w.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bordered brands-band">
+    <div class="container">
+      <div class="section-head section-head--row">
+        <h2>{c.brandsH}</h2>
+        <a href={href(lang, "/brands")} class="btn btn--ghost">{c.brandsLink}<Icon name="arrow" size={18} flip /></a>
+      </div>
+      <ul class="brand-logos">
+        {brands.map((b) => (
+          <li>
+            <a href={href(lang, "/brands") + `#${b.id}`} class="brand-logo">
+              <img src={b.logo} alt={b.name} width="240" height="80" loading="lazy" />
+              <span>{b.line[lang]}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--row">
+        <h2>{c.appsH}</h2>
+        <a href={href(lang, "/applications")} class="btn btn--ghost">{c.appsLink}<Icon name="arrow" size={18} flip /></a>
+      </div>
+      <div class="grid grid--4">
+        {applications.map((a) => (
+          <a href={href(lang, "/applications") + `#${a.id}`} class="card card--mist">
+            <span class="card__icon"><Icon name={a.icon} size={24} /></span>
+            <h3 class="card__title">{a.title[lang]}</h3>
+            <p class="card__text">{a.summary[lang]}</p>
+            <span class="card__foot">{d.common.readMore}<Icon name="arrow" size={18} flip /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cloud section--bordered">
+    <div class="container">
+      <div class="section-head"><h2>{c.howH}</h2></div>
+      <ol class="how">
+        {c.how.map((s, i) => (
+          <li class="how__step">
+            <span class="how__num">{i + 1}</span>
+            <h3 class="card__title">{s.t}</h3>
+            <p class="card__text">{s.p}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="row" style="margin-top:32px">
+        <a href={href(lang, "/quote")} class="btn btn--primary"><Icon name="cart" size={20} />{d.nav.quote}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--row">
+        <h2>{c.articlesH}</h2>
+        <a href={href(lang, "/articles")} class="btn btn--ghost">{c.articlesLink}<Icon name="arrow" size={18} flip /></a>
+      </div>
+      <div class="grid grid--3">
+        {latest.map((a) => (
+          <a href={href(lang, `/articles/${splitId(a.id).slug}`)} class="card">
+            <span class="card__icon"><Icon name={a.data.icon} size={24} /></span>
+            <h3 class="card__title">{a.data.title}</h3>
+            <p class="card__text">{a.data.description}</p>
+            <span class="card__foot">{d.common.readMore}<Icon name="arrow" size={18} flip /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Base>
+
+<style>
+  .hero { background: var(--mist); border-block-end: 1px solid var(--line); padding-block: 40px 32px; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: url("/patterns/egypgreen-pattern-mist.svg") repeat; background-size: 120px; opacity: 0.6; pointer-events: none; }
+  @media (min-width: 960px) { .hero { padding-block: 64px 40px; } }
+  .hero__grid { position: relative; display: grid; gap: 32px; align-items: center; }
+  @media (min-width: 960px) { .hero__grid { grid-template-columns: 1.15fr 1fr; gap: 48px; } }
+  .hero__text { display: flex; flex-direction: column; gap: 16px; }
+  .hero__ctas { margin-top: 8px; }
+  .hero__visual { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; aspect-ratio: 1.15; max-width: 520px; width: 100%; justify-self: center; }
+  .hero__tile { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; padding: 16px; overflow: hidden; }
+  .hero__tile img { max-height: 100%; width: auto; object-fit: contain; }
+  .hero__tile--pump { grid-row: span 2; }
+  @media (max-width: 959px) { .hero__visual { aspect-ratio: 1.6; } }
+
+  .facts { position: relative; margin: 32px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  @media (min-width: 768px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+  .fact { padding: 16px 20px; display: flex; flex-direction: column-reverse; border-inline-end: 1px solid var(--line); border-block-end: 1px solid var(--line); }
+  .fact dt { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+  .fact dd { margin: 0; font-size: 28px; line-height: 36px; font-weight: 600; color: var(--deep-green); font-family: var(--font-brand); }
+  .fact:first-child dd { color: var(--amber-deep); }
+  @media (max-width: 767px) { .fact:nth-child(2n) { border-inline-end: 0; } .fact:nth-last-child(-n + 2) { border-block-end: 0; } }
+  @media (min-width: 768px) { .fact { border-block-end: 0; } .fact:last-child { border-inline-end: 0; } }
+
+  .brand-logos { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  @media (min-width: 768px) { .brand-logos { grid-template-columns: repeat(3, 1fr); } }
+  .brand-logo { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius-md); text-align: center; color: var(--ink-muted); text-decoration: none; font-size: 15px; line-height: 24px; height: 100%; }
+  .brand-logo:hover { border-color: var(--deep-green); color: var(--ink); }
+  .brand-logo img { height: 56px; width: auto; }
+
+  .how { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  @media (min-width: 768px) { .how { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+  .how__step { display: flex; flex-direction: column; gap: 8px; padding: 24px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .how__num { width: 40px; height: 40px; border-radius: 50%; background: var(--deep-green); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 600; font-family: var(--font-brand); margin-block-end: 4px; }
+</style>

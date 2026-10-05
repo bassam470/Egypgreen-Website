@@ -1,0 +1,16 @@
+---
+import Breadcrumbs, { type Crumb } from "./Breadcrumbs.astro";
+import type { Lang } from "@/i18n";
+
+interface Props { lang: Lang; title: string; lead?: string; eyebrow?: string; crumbs: Crumb[] }
+const { lang, title, lead, eyebrow, crumbs } = Astro.props;
+---
+<section class="page-hero">
+  <div class="container page-hero__inner">
+    <Breadcrumbs lang={lang} items={crumbs} />
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>

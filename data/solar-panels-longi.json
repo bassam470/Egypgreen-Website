@@ -1,0 +1,751 @@
+{
+  "source": "https://longi-gj.com/Longi.html (Guanji Solar, a LONGi reseller in China). Datasheets read 5 Oct 2026.",
+  "note": "All values are copied from the LONGi datasheet images on the supplier's site. The same supplier also sells JA Solar, Jinko and Trina panels; those were not collected.",
+  "products": [
+    {
+      "slug": "longi-hi-mo-x10-lr7-72hvh",
+      "series": "Hi-MO X10 Scientist",
+      "model": "LR7-72HVH",
+      "power_range_w": [
+        640,
+        670
+      ],
+      "cell_tech": "HPBC 2.0 back-contact, N-type (TaiRay wafer)",
+      "cells": "144 (6x24) half-cell",
+      "bifacial": false,
+      "glass": "Single glass, 3.2 mm coated tempered",
+      "junction_box": "IP68, three diodes",
+      "dimensions_mm": [
+        2382,
+        1134,
+        30
+      ],
+      "weight_kg": 28.5,
+      "cable": "4 mm², +400/-200 mm / ±1400 mm",
+      "packaging": "36 pcs/pallet; 144 pcs per 20ft GP; 720 pcs per 40ft HC",
+      "max_efficiency_pct": 24.8,
+      "first_year_degradation_pct": 1.0,
+      "annual_degradation_pct": 0.35,
+      "temp_coeff_pmax": -0.26,
+      "temp_coeff_voc": -0.2,
+      "temp_coeff_isc": 0.05,
+      "max_system_voltage": "DC1500V (IEC)",
+      "max_fuse_a": 25,
+      "fire_rating": "IEC Class C",
+      "product_warranty_years": 15,
+      "performance_warranty_years": 30,
+      "certifications": [
+        "IEC 61215",
+        "IEC 61730"
+      ],
+      "variants": [
+        {
+          "model": "LR7-72HVH-640M",
+          "pmax_w": 640,
+          "voc_v": 53.7,
+          "isc_a": 15.13,
+          "vmp_v": 44.36,
+          "imp_a": 14.43,
+          "efficiency_pct": 23.69
+        },
+        {
+          "model": "LR7-72HVH-645M",
+          "pmax_w": 645,
+          "voc_v": 53.8,
+          "isc_a": 15.21,
+          "vmp_v": 44.46,
+          "imp_a": 14.51,
+          "efficiency_pct": 23.88
+        },
+        {
+          "model": "LR7-72HVH-650M",
+          "pmax_w": 650,
+          "voc_v": 53.9,
+          "isc_a": 15.29,
+          "vmp_v": 44.56,
+          "imp_a": 14.59,
+          "efficiency_pct": 24.06
+        },
+        {
+          "model": "LR7-72HVH-655M",
+          "pmax_w": 655,
+          "voc_v": 54.0,
+          "isc_a": 15.37,
+          "vmp_v": 44.66,
+          "imp_a": 14.67,
+          "efficiency_pct": 24.25
+        },
+        {
+          "model": "LR7-72HVH-660M",
+          "pmax_w": 660,
+          "voc_v": 54.1,
+          "isc_a": 15.45,
+          "vmp_v": 44.76,
+          "imp_a": 14.75,
+          "efficiency_pct": 24.43
+        },
+        {
+          "model": "LR7-72HVH-665M",
+          "pmax_w": 665,
+          "voc_v": 54.2,
+          "isc_a": 15.52,
+          "vmp_v": 44.86,
+          "imp_a": 14.83,
+          "efficiency_pct": 24.62
+        },
+        {
+          "model": "LR7-72HVH-670M",
+          "pmax_w": 670,
+          "voc_v": 54.3,
+          "isc_a": 15.6,
+          "vmp_v": 44.96,
+          "imp_a": 14.91,
+          "efficiency_pct": 24.8
+        }
+      ],
+      "operating_temp": "-40 to +85 °C",
+      "noct": "45±2 °C",
+      "power_tolerance": "0~+3%",
+      "front_load_pa": 5400,
+      "rear_load_pa": 2400,
+      "hail": "25 mm at 23 m/s",
+      "brand": "LONGi",
+      "category": "solar-panels",
+      "frame": "Anodized aluminium alloy",
+      "stc": "1000 W/m², 25 °C, AM1.5",
+      "image": "Images/Product/longi/longi-hi-mo-x10-lr7-72hvh.jpg",
+      "datasheet": [
+        "Images/Datasheets/longi/longi-hi-mo-x10-lr7-72hvh-page1.jpg",
+        "Images/Datasheets/longi/longi-hi-mo-x10-lr7-72hvh-page2.jpg"
+      ]
+    },
+    {
+      "slug": "longi-hi-mo-x10-lr7-60hvd",
+      "series": "Hi-MO X10 Scientist",
+      "model": "LR7-60HVD",
+      "power_range_w": [
+        530,
+        555
+      ],
+      "cell_tech": "HPBC 2.0 back-contact, N-type (TaiRay wafer)",
+      "cells": "120 (6x20) half-cell",
+      "bifacial": true,
+      "bifaciality": "70±5%",
+      "glass": "Dual glass, 2.0+2.0 mm semi-tempered",
+      "junction_box": "IP68, three diodes",
+      "dimensions_mm": [
+        1990,
+        1134,
+        30
+      ],
+      "weight_kg": 28,
+      "cable": "4 mm², +400/-200 mm / ±1400 mm",
+      "packaging": "36 pcs/pallet; 180 pcs per 20ft GP; 792 pcs per 40ft HC",
+      "max_efficiency_pct": 24.59,
+      "first_year_degradation_pct": 1.0,
+      "annual_degradation_pct": 0.35,
+      "temp_coeff_pmax": -0.26,
+      "temp_coeff_voc": -0.2,
+      "temp_coeff_isc": 0.05,
+      "max_system_voltage": "DC1500V (IEC)",
+      "max_fuse_a": 30,
+      "fire_rating": "IEC Class C",
+      "product_warranty_years": 15,
+      "performance_warranty_years": 30,
+      "certifications": [
+        "IEC 61215",
+        "IEC 61730"
+      ],
+      "variants": [
+        {
+          "model": "LR7-60HVD-530M",
+          "pmax_w": 530,
+          "voc_v": 44.95,
+          "isc_a": 14.9,
+          "vmp_v": 37.17,
+          "imp_a": 14.26,
+          "efficiency_pct": 23.49
+        },
+        {
+          "model": "LR7-60HVD-535M",
+          "pmax_w": 535,
+          "voc_v": 45.05,
+          "isc_a": 15.0,
+          "vmp_v": 37.27,
+          "imp_a": 14.36,
+          "efficiency_pct": 23.71
+        },
+        {
+          "model": "LR7-60HVD-540M",
+          "pmax_w": 540,
+          "voc_v": 45.15,
+          "isc_a": 15.1,
+          "vmp_v": 37.37,
+          "imp_a": 14.45,
+          "efficiency_pct": 23.93
+        },
+        {
+          "model": "LR7-60HVD-545M",
+          "pmax_w": 545,
+          "voc_v": 45.25,
+          "isc_a": 15.2,
+          "vmp_v": 37.47,
+          "imp_a": 14.55,
+          "efficiency_pct": 24.15
+        },
+        {
+          "model": "LR7-60HVD-550M",
+          "pmax_w": 550,
+          "voc_v": 45.35,
+          "isc_a": 15.3,
+          "vmp_v": 37.57,
+          "imp_a": 14.64,
+          "efficiency_pct": 24.37
+        },
+        {
+          "model": "LR7-60HVD-555M",
+          "pmax_w": 555,
+          "voc_v": 45.45,
+          "isc_a": 15.4,
+          "vmp_v": 37.67,
+          "imp_a": 14.73,
+          "efficiency_pct": 24.59
+        }
+      ],
+      "operating_temp": "-40 to +85 °C",
+      "noct": "45±2 °C",
+      "power_tolerance": "0~+3%",
+      "front_load_pa": 5400,
+      "rear_load_pa": 2400,
+      "hail": "25 mm at 23 m/s",
+      "brand": "LONGi",
+      "category": "solar-panels",
+      "frame": "Anodized aluminium alloy",
+      "stc": "1000 W/m², 25 °C, AM1.5",
+      "image": "Images/Product/longi/longi-hi-mo-x10-lr7-60hvd.jpg",
+      "datasheet": [
+        "Images/Datasheets/longi/longi-hi-mo-x10-lr7-60hvd-page1.jpg",
+        "Images/Datasheets/longi/longi-hi-mo-x10-lr7-60hvd-page2.jpg"
+      ]
+    },
+    {
+      "slug": "longi-hi-mo-x10-lr7-54hvd",
+      "series": "Hi-MO X10 Scientist",
+      "model": "LR7-54HVD",
+      "power_range_w": [
+        475,
+        500
+      ],
+      "cell_tech": "HPBC 2.0 back-contact, N-type (TaiRay wafer)",
+      "cells": "108 (6x18) half-cell",
+      "bifacial": true,
+      "bifaciality": "70±5%",
+      "glass": "Dual glass, 2.0+2.0 mm semi-tempered",
+      "junction_box": "IP68, three diodes",
+      "dimensions_mm": [
+        1800,
+        1134,
+        30
+      ],
+      "weight_kg": 23.5,
+      "cable": "4 mm², +400/-200 mm / ±1200 mm",
+      "packaging": "36 pcs/pallet; 216 pcs per 20ft GP; 864 pcs per 40ft HC",
+      "max_efficiency_pct": 24.5,
+      "first_year_degradation_pct": 1.0,
+      "annual_degradation_pct": 0.35,
+      "temp_coeff_pmax": -0.26,
+      "temp_coeff_voc": -0.2,
+      "temp_coeff_isc": 0.05,
+      "max_system_voltage": "DC1500V (IEC)",
+      "max_fuse_a": 30,
+      "fire_rating": "IEC Class C",
+      "product_warranty_years": 15,
+      "performance_warranty_years": 30,
+      "certifications": [
+        "IEC 61215",
+        "IEC 61730"
+      ],
+      "variants": [
+        {
+          "model": "LR7-54HVD-475M",
+          "pmax_w": 475,
+          "voc_v": 40.42,
+          "isc_a": 14.88,
+          "vmp_v": 33.4,
+          "imp_a": 14.23,
+          "efficiency_pct": 23.27
+        },
+        {
+          "model": "LR7-54HVD-480M",
+          "pmax_w": 480,
+          "voc_v": 40.53,
+          "isc_a": 14.98,
+          "vmp_v": 33.51,
+          "imp_a": 14.33,
+          "efficiency_pct": 23.52
+        },
+        {
+          "model": "LR7-54HVD-485M",
+          "pmax_w": 485,
+          "voc_v": 40.64,
+          "isc_a": 15.08,
+          "vmp_v": 33.62,
+          "imp_a": 14.43,
+          "efficiency_pct": 23.76
+        },
+        {
+          "model": "LR7-54HVD-490M",
+          "pmax_w": 490,
+          "voc_v": 40.75,
+          "isc_a": 15.18,
+          "vmp_v": 33.73,
+          "imp_a": 14.53,
+          "efficiency_pct": 24.01
+        },
+        {
+          "model": "LR7-54HVD-495M",
+          "pmax_w": 495,
+          "voc_v": 40.86,
+          "isc_a": 15.28,
+          "vmp_v": 33.84,
+          "imp_a": 14.63,
+          "efficiency_pct": 24.25
+        },
+        {
+          "model": "LR7-54HVD-500M",
+          "pmax_w": 500,
+          "voc_v": 40.97,
+          "isc_a": 15.38,
+          "vmp_v": 33.95,
+          "imp_a": 14.73,
+          "efficiency_pct": 24.5
+        }
+      ],
+      "operating_temp": "-40 to +85 °C",
+      "noct": "45±2 °C",
+      "power_tolerance": "0~+3%",
+      "front_load_pa": 5400,
+      "rear_load_pa": 2400,
+      "hail": "25 mm at 23 m/s",
+      "brand": "LONGi",
+      "category": "solar-panels",
+      "frame": "Anodized aluminium alloy",
+      "stc": "1000 W/m², 25 °C, AM1.5",
+      "image": "Images/Product/longi/longi-hi-mo-x10-lr7-54hvd.jpg",
+      "datasheet": [
+        "Images/Datasheets/longi/longi-hi-mo-x10-lr7-54hvd-page1.jpg",
+        "Images/Datasheets/longi/longi-hi-mo-x10-lr7-54hvd-page2.jpg"
+      ]
+    },
+    {
+      "slug": "longi-hi-mo-x6-lr7-72hth",
+      "series": "Hi-MO X6 Max Explorer",
+      "model": "LR7-72HTH",
+      "power_range_w": [
+        605,
+        615
+      ],
+      "cell_tech": "HPBC back-contact",
+      "cells": "144 (6x24) half-cell",
+      "bifacial": false,
+      "glass": "Single glass, 3.2 mm coated tempered",
+      "junction_box": "IP68",
+      "dimensions_mm": [
+        2382,
+        1134,
+        30
+      ],
+      "weight_kg": 28.5,
+      "cable": "4 mm², +400/-200 mm / ±1400 mm",
+      "packaging": "36 pcs/pallet; 144 pcs per 20ft GP; 720 pcs per 40ft HC",
+      "max_efficiency_pct": 22.8,
+      "first_year_degradation_pct": 1.0,
+      "annual_degradation_pct": 0.4,
+      "temp_coeff_pmax": -0.28,
+      "temp_coeff_voc": -0.23,
+      "temp_coeff_isc": 0.05,
+      "max_system_voltage": "DC1500V (IEC/UL)",
+      "max_fuse_a": 25,
+      "fire_rating": "IEC Class C",
+      "product_warranty_years": 15,
+      "performance_warranty_years": 25,
+      "certifications": [
+        "IEC 61215",
+        "IEC 61730"
+      ],
+      "use_case": "Distribution market: rooftops, homes, commercial",
+      "variants": [
+        {
+          "model": "LR7-72HTH-605M",
+          "pmax_w": 605,
+          "voc_v": 52.27,
+          "isc_a": 14.74,
+          "vmp_v": 44.03,
+          "imp_a": 13.75,
+          "efficiency_pct": 22.4
+        },
+        {
+          "model": "LR7-72HTH-610M",
+          "pmax_w": 610,
+          "voc_v": 52.42,
+          "isc_a": 14.8,
+          "vmp_v": 44.18,
+          "imp_a": 13.81,
+          "efficiency_pct": 22.6
+        },
+        {
+          "model": "LR7-72HTH-615M",
+          "pmax_w": 615,
+          "voc_v": 52.57,
+          "isc_a": 14.87,
+          "vmp_v": 44.33,
+          "imp_a": 13.88,
+          "efficiency_pct": 22.8
+        }
+      ],
+      "operating_temp": "-40 to +85 °C",
+      "noct": "45±2 °C",
+      "power_tolerance": "0~+3%",
+      "front_load_pa": 5400,
+      "rear_load_pa": 2400,
+      "hail": "25 mm at 23 m/s",
+      "brand": "LONGi",
+      "category": "solar-panels",
+      "frame": "Anodized aluminium alloy",
+      "stc": "1000 W/m², 25 °C, AM1.5",
+      "image": "Images/Product/longi/longi-hi-mo-x6-lr7-72hth.jpg",
+      "datasheet": [
+        "Images/Datasheets/longi/longi-hi-mo-x6-lr7-72hth-page1.jpg",
+        "Images/Datasheets/longi/longi-hi-mo-x6-lr7-72hth-page2.jpg"
+      ]
+    },
+    {
+      "slug": "longi-hi-mo-7-lr8-66hgd",
+      "series": "Hi-MO 7",
+      "model": "LR8-66HGD",
+      "power_range_w": [
+        595,
+        625
+      ],
+      "cell_tech": "HPDC",
+      "cells": "132 (6x22) half-cell",
+      "bifacial": true,
+      "bifaciality": "80±5%",
+      "glass": "Dual glass, 2.0+2.0 mm heat strengthened",
+      "junction_box": "IP68, three diodes",
+      "dimensions_mm": [
+        2382,
+        1134,
+        30
+      ],
+      "weight_kg": 32.5,
+      "cable": "4 mm², +400/-200 mm / ±1400 mm",
+      "packaging": "36 pcs/pallet; 144 pcs per 20ft GP; 720 pcs per 40ft HC",
+      "max_efficiency_pct": 23.1,
+      "first_year_degradation_pct": 1.0,
+      "annual_degradation_pct": 0.4,
+      "temp_coeff_pmax": -0.28,
+      "temp_coeff_voc": -0.23,
+      "temp_coeff_isc": 0.045,
+      "max_system_voltage": "DC1500V (IEC/UL)",
+      "max_fuse_a": 35,
+      "fire_rating": "UL type 29 / IEC Class C",
+      "product_warranty_years": 12,
+      "performance_warranty_years": 30,
+      "certifications": [
+        "IEC 61215",
+        "IEC 61730",
+        "UL 61730"
+      ],
+      "use_case": "Utility and large ground-mounted plants",
+      "variants": [
+        {
+          "model": "LR8-66HGD-595M",
+          "pmax_w": 595,
+          "voc_v": 47.78,
+          "isc_a": 15.8,
+          "vmp_v": 39.91,
+          "imp_a": 14.91,
+          "efficiency_pct": 22.0
+        },
+        {
+          "model": "LR8-66HGD-600M",
+          "pmax_w": 600,
+          "voc_v": 47.98,
+          "isc_a": 15.85,
+          "vmp_v": 40.11,
+          "imp_a": 14.96,
+          "efficiency_pct": 22.2
+        },
+        {
+          "model": "LR8-66HGD-605M",
+          "pmax_w": 605,
+          "voc_v": 48.18,
+          "isc_a": 15.9,
+          "vmp_v": 40.31,
+          "imp_a": 15.01,
+          "efficiency_pct": 22.4
+        },
+        {
+          "model": "LR8-66HGD-610M",
+          "pmax_w": 610,
+          "voc_v": 48.38,
+          "isc_a": 15.95,
+          "vmp_v": 40.51,
+          "imp_a": 15.06,
+          "efficiency_pct": 22.6
+        },
+        {
+          "model": "LR8-66HGD-615M",
+          "pmax_w": 615,
+          "voc_v": 48.58,
+          "isc_a": 16.0,
+          "vmp_v": 40.71,
+          "imp_a": 15.11,
+          "efficiency_pct": 22.8
+        },
+        {
+          "model": "LR8-66HGD-620M",
+          "pmax_w": 620,
+          "voc_v": 48.78,
+          "isc_a": 16.05,
+          "vmp_v": 40.91,
+          "imp_a": 15.16,
+          "efficiency_pct": 23.0
+        },
+        {
+          "model": "LR8-66HGD-625M",
+          "pmax_w": 625,
+          "voc_v": 48.98,
+          "isc_a": 16.1,
+          "vmp_v": 41.11,
+          "imp_a": 15.21,
+          "efficiency_pct": 23.1
+        }
+      ],
+      "operating_temp": "-40 to +85 °C",
+      "noct": "45±2 °C",
+      "power_tolerance": "0~+3%",
+      "front_load_pa": 5400,
+      "rear_load_pa": 2400,
+      "hail": "25 mm at 23 m/s",
+      "brand": "LONGi",
+      "category": "solar-panels",
+      "frame": "Anodized aluminium alloy",
+      "stc": "1000 W/m², 25 °C, AM1.5",
+      "image": "Images/Product/longi/longi-hi-mo-7-lr8-66hgd.jpg",
+      "datasheet": [
+        "Images/Datasheets/longi/longi-hi-mo-7-lr8-66hgd-page1.jpg",
+        "Images/Datasheets/longi/longi-hi-mo-7-lr8-66hgd-page2.jpg"
+      ]
+    },
+    {
+      "slug": "longi-hi-mo-7-lr7-54hgbb",
+      "series": "Hi-MO 7",
+      "model": "LR7-54HGBB",
+      "power_range_w": [
+        440,
+        460
+      ],
+      "cell_tech": "HPDC",
+      "cells": "108 (6x18) half-cell, all-black",
+      "bifacial": true,
+      "bifaciality": "80±10%",
+      "glass": "Dual glass, 2.0+1.6 mm semi-tempered",
+      "junction_box": "IP68",
+      "dimensions_mm": [
+        1800,
+        1134,
+        30
+      ],
+      "weight_kg": 23.6,
+      "cable": "4 mm², +400/-200 mm / ±1200 mm",
+      "packaging": "36 pcs/pallet; 216 pcs per 20ft GP; 846 pcs per 40ft HC",
+      "max_efficiency_pct": 22.5,
+      "first_year_degradation_pct": 1.0,
+      "annual_degradation_pct": 0.4,
+      "temp_coeff_pmax": -0.28,
+      "temp_coeff_voc": -0.23,
+      "temp_coeff_isc": 0.045,
+      "max_system_voltage": "DC1500V (IEC/UL)",
+      "max_fuse_a": 30,
+      "fire_rating": "UL type 38 / IEC Class C",
+      "product_warranty_years": 25,
+      "performance_warranty_years": 30,
+      "certifications": [
+        "IEC 61215",
+        "IEC 61730",
+        "UL 61730",
+        "IEC 62941",
+        "ISO 9001",
+        "ISO 14001",
+        "ISO 45001"
+      ],
+      "use_case": "Distribution market: rooftops, homes, commercial",
+      "variants": [
+        {
+          "model": "LR7-54HGBB-440M",
+          "pmax_w": 440,
+          "voc_v": 39.3,
+          "isc_a": 14.23,
+          "vmp_v": 32.82,
+          "imp_a": 13.41,
+          "efficiency_pct": 21.6
+        },
+        {
+          "model": "LR7-54HGBB-445M",
+          "pmax_w": 445,
+          "voc_v": 39.5,
+          "isc_a": 14.3,
+          "vmp_v": 33.02,
+          "imp_a": 13.48,
+          "efficiency_pct": 21.8
+        },
+        {
+          "model": "LR7-54HGBB-450M",
+          "pmax_w": 450,
+          "voc_v": 39.7,
+          "isc_a": 14.37,
+          "vmp_v": 33.22,
+          "imp_a": 13.55,
+          "efficiency_pct": 22.0
+        },
+        {
+          "model": "LR7-54HGBB-455M",
+          "pmax_w": 455,
+          "voc_v": 39.9,
+          "isc_a": 14.45,
+          "vmp_v": 33.42,
+          "imp_a": 13.62,
+          "efficiency_pct": 22.3
+        },
+        {
+          "model": "LR7-54HGBB-460M",
+          "pmax_w": 460,
+          "voc_v": 40.1,
+          "isc_a": 14.52,
+          "vmp_v": 33.63,
+          "imp_a": 13.68,
+          "efficiency_pct": 22.5
+        }
+      ],
+      "operating_temp": "-40 to +85 °C",
+      "noct": "45±2 °C",
+      "power_tolerance": "0~+3%",
+      "front_load_pa": 5400,
+      "rear_load_pa": 2400,
+      "hail": "25 mm at 23 m/s",
+      "brand": "LONGi",
+      "category": "solar-panels",
+      "frame": "Anodized aluminium alloy",
+      "stc": "1000 W/m², 25 °C, AM1.5",
+      "image": "Images/Product/longi/longi-hi-mo-7-lr7-54hgbb.jpg",
+      "datasheet": [
+        "Images/Datasheets/longi/longi-hi-mo-7-lr7-54hgbb-page1.jpg",
+        "Images/Datasheets/longi/longi-hi-mo-7-lr7-54hgbb-page2.jpg"
+      ]
+    },
+    {
+      "slug": "longi-hi-mo-5-lr5-72hbd",
+      "series": "Hi-MO 5 (G2)",
+      "model": "LR5-72HBD",
+      "power_range_w": [
+        540,
+        560
+      ],
+      "cell_tech": "M10 gallium-doped wafer, 9-busbar half-cell",
+      "cells": "144 (6x24) half-cell",
+      "bifacial": true,
+      "bifaciality": "70±5%",
+      "glass": "Dual glass, 2.0+2.0 mm heat strengthened",
+      "junction_box": "IP68, three diodes",
+      "dimensions_mm": [
+        2278,
+        1134,
+        30
+      ],
+      "weight_kg": 31.8,
+      "cable": "4 mm², +400/-200 mm / ±1400 mm",
+      "packaging": "36 pcs/pallet; 180 pcs per 20ft GP; 720 pcs per 40ft HC",
+      "max_efficiency_pct": 21.7,
+      "first_year_degradation_pct": 2.0,
+      "annual_degradation_pct": 0.45,
+      "temp_coeff_pmax": -0.34,
+      "temp_coeff_voc": -0.265,
+      "temp_coeff_isc": 0.05,
+      "max_system_voltage": "DC1500V (IEC/UL)",
+      "max_fuse_a": 30,
+      "fire_rating": "UL type 29 / IEC Class C",
+      "product_warranty_years": 12,
+      "performance_warranty_years": 30,
+      "certifications": [
+        "IEC 61215",
+        "IEC 61730",
+        "UL 61730"
+      ],
+      "use_case": "Utility and large ground-mounted plants",
+      "variants": [
+        {
+          "model": "LR5-72HBD-540M",
+          "pmax_w": 540,
+          "voc_v": 49.5,
+          "isc_a": 13.85,
+          "vmp_v": 41.65,
+          "imp_a": 12.97,
+          "efficiency_pct": 20.9
+        },
+        {
+          "model": "LR5-72HBD-545M",
+          "pmax_w": 545,
+          "voc_v": 49.65,
+          "isc_a": 13.92,
+          "vmp_v": 41.8,
+          "imp_a": 13.04,
+          "efficiency_pct": 21.1
+        },
+        {
+          "model": "LR5-72HBD-550M",
+          "pmax_w": 550,
+          "voc_v": 49.8,
+          "isc_a": 13.99,
+          "vmp_v": 41.95,
+          "imp_a": 13.12,
+          "efficiency_pct": 21.3
+        },
+        {
+          "model": "LR5-72HBD-555M",
+          "pmax_w": 555,
+          "voc_v": 49.95,
+          "isc_a": 14.05,
+          "vmp_v": 42.1,
+          "imp_a": 13.19,
+          "efficiency_pct": 21.5
+        },
+        {
+          "model": "LR5-72HBD-560M",
+          "pmax_w": 560,
+          "voc_v": 50.1,
+          "isc_a": 14.1,
+          "vmp_v": 42.25,
+          "imp_a": 13.26,
+          "efficiency_pct": 21.7
+        }
+      ],
+      "operating_temp": "-40 to +85 °C",
+      "noct": "45±2 °C",
+      "power_tolerance": "0~+3%",
+      "front_load_pa": 5400,
+      "rear_load_pa": 2400,
+      "hail": "25 mm at 23 m/s",
+      "brand": "LONGi",
+      "category": "solar-panels",
+      "frame": "Anodized aluminium alloy",
+      "stc": "1000 W/m², 25 °C, AM1.5",
+      "image": "Images/Product/longi/longi-hi-mo-5-lr5-72hbd.jpg",
+      "datasheet": [
+        "Images/Datasheets/longi/longi-hi-mo-5-lr5-72hbd-page1.jpg",
+        "Images/Datasheets/longi/longi-hi-mo-5-lr5-72hbd-page2.jpg"
+      ]
+    }
+  ]
+}

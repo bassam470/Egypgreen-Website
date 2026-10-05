@@ -1,0 +1,83 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import Icon from "@/components/Icon.astro";
+import { applications } from "@/data/applications";
+import { productBySlug, productPath } from "@/data/products";
+import { href, langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+
+const c = {
+  ar: {
+    title: "الاستخدامات",
+    lead: "منتجاتنا تخدم كل من يعتمد على المياه الجوفية: الري الزراعي، والمنازل والمجمعات، والمصانع، ومشروعات الطاقة الشمسية.",
+    desc: "استخدامات الطلمبات الغاطسة ومواسير الآبار والألواح الشمسية: الري الزراعي، والمنازل، والمصانع، والري بالطاقة الشمسية.",
+    jump: "انتقل إلى",
+    fits: "المنتجات المناسبة",
+  },
+  en: {
+    title: "Applications",
+    lead: "Our products serve anyone who relies on groundwater: farm irrigation, homes and compounds, factories and solar projects.",
+    desc: "Applications for submersible pumps, bore-well pipes and solar panels: farm irrigation, homes, factories and solar-powered pumping.",
+    jump: "Jump to",
+    fits: "Suitable products",
+  },
+}[lang];
+---
+<Base lang={lang} title={c.title} description={c.desc}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.applications }]}>
+    <nav class="jump" aria-label={c.jump}>
+      {applications.map((a) => <a href={`#${a.id}`} class="tag tag--white">{a.title[lang]}</a>)}
+    </nav>
+  </PageHero>
+
+  {applications.map((a, i) => (
+    <section class:list={["section", { "section--cloud section--bordered": i % 2 === 1 }]} id={a.id}>
+      <div class="container app">
+        <div class="stack">
+          <span class="card__icon app__icon"><Icon name={a.icon} size={28} /></span>
+          <h2>{a.title[lang]}</h2>
+          {a.body[lang].map((p) => <p>{p}</p>)}
+          <ul class="checklist">
+            {a.points[lang].map((pt) => <li><Icon name="check" size={18} /><span>{pt}</span></li>)}
+          </ul>
+        </div>
+        <div class="stack">
+          <h3>{c.fits}</h3>
+          <ul class="fits">
+            {a.products.map(productBySlug).map((p) => (
+              <li>
+                <a href={href(lang, productPath(p))} class="fit">
+                  <img src={p.cardImage} alt="" width="96" height="72" loading="lazy" />
+                  <span class="fit__name">{p.name[lang]}</span>
+                  <Icon name="chevron" size={18} flip />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CtaBand lang={lang} />
+</Base>
+
+<style>
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .jump a { text-decoration: none; padding: 6px 12px; border: 1px solid var(--line); font-size: 14px; }
+  .jump a:hover { border-color: var(--deep-green); }
+  .app { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .app { grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: start; } }
+  .app__icon { width: 56px; height: 56px; }
+  .fits { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .fit { display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--white); color: var(--ink); text-decoration: none; }
+  .fit:hover { border-color: var(--deep-green); }
+  .fit img { width: 72px; height: 54px; object-fit: contain; flex: none; }
+  .fit__name { flex: 1; font-weight: 600; font-size: 15px; line-height: 22px; }
+  .fit :global(.icon) { color: var(--deep-green); }
+</style>

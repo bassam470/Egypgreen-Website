@@ -1,0 +1,190 @@
+---
+import Base from "@/layouts/Base.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import Icon from "@/components/Icon.astro";
+import ProductCard from "@/components/ProductCard.astro";
+import QuoteSelector from "@/components/QuoteSelector.astro";
+import SpecTable from "@/components/SpecTable.astro";
+import { brandById } from "@/data/brands";
+import { catalogById } from "@/data/catalogs";
+import { company } from "@/data/company";
+import { categoryPath, productBySlug, products, productPath, type Product } from "@/data/products";
+import { href, locales, t, type Lang } from "@/i18n";
+
+export function getStaticPaths() {
+  return locales.flatMap((lang) => products.map((p) => ({ params: { lang, slug: p.slug }, props: { product: p } })));
+}
+
+const lang = Astro.params.lang as Lang;
+const { product: p } = Astro.props as { product: Product };
+const d = t(lang);
+const brand = brandById(p.brand);
+const catNav = { pumps: d.nav.pumps, pipes: d.nav.pipes, solar: d.nav.solar }[p.category];
+const related = p.related.map(productBySlug);
+const docs = p.catalogs.map(catalogById).filter((c) => c !== undefined);
+const ui = lang === "ar"
+  ? { about: "عن المنتج", features: "المميزات", specs: "المواصفات الفنية", downloads: "الكتالوجات والنشرات", related: "منتجات تكمل الطلب", models: "تفاصيل كل موديل" }
+  : { about: "About this product", features: "Features", specs: "Technical specifications", downloads: "Catalogues and datasheets", related: "Products that complete the order", models: "Details for each model" };
+
+const collapsible = p.tables.filter((tb) => tb.collapsible);
+const plain = p.tables.filter((tb) => !tb.collapsible);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: p.name[lang],
+  description: p.summary[lang],
+  image: new URL(p.image, company.site).href,
+  brand: { "@type": "Brand", name: brand.name },
+  category: catNav,
+  url: new URL(href(lang, productPath(p)), company.site).href,
+};
+---
+<Base lang={lang} title={p.name[lang]} description={p.summary[lang]} image={p.image} type="product" jsonLd={[jsonLd]}>
+  <section class="product-top">
+    <div class="container">
+      <Breadcrumbs lang={lang} items={[{ label: catNav, to: categoryPath[p.category] }, { label: p.name[lang] }]} />
+      <div class="product-top__grid">
+        <div class="product-media">
+          <div class="product-media__main">
+            <img src={p.image} alt={p.name[lang]} width="1000" height="1000" fetchpriority="high" data-main-img />
+          </div>
+          {p.gallery && p.gallery.length > 1 && (
+            <ul class="product-media__thumbs">
+              {p.gallery.map((g, i) => (
+                <li><button type="button" class="thumb" data-src={g.src} aria-pressed={i === 0 ? "true" : "false"}><img src={g.src} alt={g.alt[lang]} width="120" height="120" loading="lazy" /></button></li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="product-info">
+          <div class="row product-info__brand">
+            <img src={brand.logo} alt={brand.name} height="32" width="96" />
+            <span class="tag">{d.common.authorizedAgent}</span>
+          </div>
+          <h1>{p.name[lang]}</h1>
+          <p class="lead">{p.summary[lang]}</p>
+          <div class="figures figures--compact">
+            {p.keyFigures.map((f) => (
+              <div class="figure"><div class="figure__value">{f.value[lang]}</div><div class="figure__label">{f.label[lang]}</div></div>
+            ))}
+          </div>
+          <QuoteSelector product={p} lang={lang} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cloud section--bordered">
+    <div class="container product-about">
+      <div class="stack">
+        <h2>{ui.about}</h2>
+        {p.intro[lang].map((para) => <p>{para}</p>)}
+      </div>
+      <div class="card">
+        <h2 class="h3-like">{ui.features}</h2>
+        <ul class="checklist">
+          {p.features[lang].map((f) => <li><Icon name="check" size={18} /><span>{f}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack stack--lg">
+      <h2>{ui.specs}</h2>
+      <SpecTable table={p.overview} lang={lang} />
+      {plain.map((tb) => <SpecTable table={tb} lang={lang} />)}
+      {collapsible.length > 0 && (
+        <div class="stack">
+          <h3>{ui.models}</h3>
+          {collapsible.map((tb) => <SpecTable table={tb} lang={lang} />)}
+        </div>
+      )}
+    </div>
+  </section>
+
+  {docs.length > 0 && (
+    <section class="section section--mist">
+      <div class="container">
+        <div class="section-head"><h2>{ui.downloads}</h2></div>
+        <ul class="docs">
+          {docs.map((c) => (
+            <li>
+              <a href={c!.file} class="doc" download>
+                <span class="card__icon"><Icon name="doc" size={24} /></span>
+                <span class="doc__text">
+                  <span class="doc__title">{c!.title[lang]}</span>
+                  <span class="doc__meta">PDF · {c!.language[lang]}</span>
+                </span>
+                <Icon name="download" size={20} class="doc__dl" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><h2>{ui.related}</h2></div>
+      <div class="grid grid--3">
+        {related.map((r) => <ProductCard product={r} lang={lang} />)}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Open a model's details when linked by #anchor (e.g. from the solar page).
+  const openFromHash = () => {
+    const el = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (el instanceof HTMLDetailsElement) { el.open = true; el.scrollIntoView(); }
+  };
+  openFromHash();
+  window.addEventListener("hashchange", openFromHash);
+
+  // Gallery thumbnails.
+  const main = document.querySelector<HTMLImageElement>("[data-main-img]");
+  document.querySelectorAll<HTMLButtonElement>(".thumb").forEach((b, _, all) =>
+    b.addEventListener("click", () => {
+      if (main) main.src = b.dataset.src!;
+      all.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    }),
+  );
+</script>
+
+<style>
+  .thumb { padding: 0; border: 0; background: none; cursor: pointer; border-radius: var(--radius-md); }
+  .thumb[aria-pressed="true"] img { border-color: var(--deep-green); }
+  .product-top { padding-block: 24px 56px; }
+  .product-top__grid { display: grid; gap: 32px; margin-top: 24px; }
+  @media (min-width: 960px) { .product-top__grid { grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; } }
+  .product-media { display: flex; flex-direction: column; gap: 12px; }
+  @media (min-width: 960px) { .product-media { position: sticky; top: 130px; } }
+  .product-media__main { border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--white); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .product-media__main img { max-height: 100%; width: auto; object-fit: contain; }
+  .product-media__thumbs { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; }
+  .product-media__thumbs img { width: 80px; height: 80px; border: 1px solid var(--line); border-radius: var(--radius-md); object-fit: contain; padding: 6px; }
+  .product-info { display: flex; flex-direction: column; gap: 20px; }
+  .product-info__brand img { height: 32px; width: auto; }
+  .figures--compact { grid-template-columns: repeat(2, 1fr); }
+  .figures--compact .figure { border-block-end: 1px solid var(--line); }
+  .figures--compact .figure:nth-child(2n) { border-inline-end: 0; }
+  .figures--compact .figure:nth-last-child(-n + 2) { border-block-end: 0; }
+  .figures--compact .figure__value { font-size: 20px; line-height: 28px; }
+  .product-about { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .product-about { grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; } }
+  .h3-like { font-size: 20px; line-height: 28px; }
+  .stack--lg { gap: 32px; }
+  .docs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  @media (min-width: 768px) { .docs { grid-template-columns: repeat(2, 1fr); } }
+  .doc { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--white); color: var(--ink); text-decoration: none; }
+  .doc:hover { border-color: var(--deep-green); }
+  .doc__text { display: flex; flex-direction: column; flex: 1; }
+  .doc__title { font-weight: 600; }
+  .doc__meta { font-size: 14px; color: var(--ink-muted); }
+  .doc :global(.doc__dl) { color: var(--deep-green); }
+</style>

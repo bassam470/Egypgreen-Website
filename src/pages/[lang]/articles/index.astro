@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import Icon from "@/components/Icon.astro";
+import { formatDate, inLang, readingMinutes, splitId } from "@/lib/content";
+import { href, langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const articles = inLang(await getCollection("articles"), lang).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const c = {
+  ar: { title: "المقالات", lead: "أدلة عملية لاختيار الطلمبات الغاطسة ومواسير الآبار والألواح الشمسية، بأرقام من كتالوجات المصنعين.", desc: "مقالات وأدلة عن اختيار الطلمبات الغاطسة وحساب الرفع الكلي ومواسير الآبار والألواح الشمسية للري.", min: "دقائق قراءة" },
+  en: { title: "Articles", lead: "Practical guides to choosing submersible pumps, bore-well pipes and solar panels, with figures from the manufacturers' catalogues.", desc: "Articles and guides on choosing submersible pumps, calculating total head, bore-well pipes and solar panels for irrigation.", min: "min read" },
+}[lang];
+---
+<Base lang={lang} title={c.title} description={c.desc}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.articles }]} />
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2">
+        {articles.map((a) => (
+          <a href={href(lang, `/articles/${splitId(a.id).slug}`)} class="card article-card">
+            <span class="card__icon"><Icon name={a.data.icon} size={24} /></span>
+            <h2 class="card__title">{a.data.title}</h2>
+            <p class="card__text">{a.data.description}</p>
+            <span class="article-card__meta">{formatDate(a.data.date, lang)} · {readingMinutes(a.body, lang)} {c.min}</span>
+            <span class="card__foot">{d.common.readMore}<Icon name="arrow" size={18} flip /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .article-card__meta { font-size: 13px; color: var(--ink-muted); }
+</style>

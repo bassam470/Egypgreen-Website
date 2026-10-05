@@ -1,0 +1,118 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import ProductCard from "@/components/ProductCard.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import Icon from "@/components/Icon.astro";
+import { productsIn } from "@/data/products";
+import { langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const items = productsIn("pumps");
+
+const c = {
+  ar: {
+    title: "الطلمبات والمواتير الغاطسة",
+    lead: "طلمبات Tormac الغاطسة استانلس ستيل ومواتيرها، لآبار من 4 إلى 10 بوصة وقدرات من 0.5 إلى 150 حصان.",
+    desc: "طلمبات ومواتير Tormac الغاطسة لآبار 4 و6 و8 و10 بوصة. وكيل معتمد مع توصيل لكل المحافظات. اطلب عرض سعر على واتساب.",
+    productsH: "المنتجات",
+    chooseH: "4 أرقام تحدد الطلمبة المناسبة",
+    chooseP: "أرسل لنا هذه البيانات مع طلبك، ويرشح لك فريق المبيعات الطلمبة والموتور المناسبين.",
+    steps: [
+      { icon: "drop", t: "قطر البئر الداخلي", p: "يحدد مقاس الطلمبة والموتور: 4 أو 6 أو 8 أو 10 بوصة. الطلمبة لازم تدخل البئر بخلوص كافٍ لمرور المياه حول الموتور." },
+      { icon: "pump", t: "التصرف المطلوب", p: "كمية المياه في الساعة بالمتر المكعب. تعتمد على مساحة الأرض ونوع الري أو عدد الوحدات السكنية." },
+      { icon: "arrow", t: "الرفع الكلي", p: "عمق منسوب المياه أثناء السحب، مضافًا إليه ارتفاع الخزان أو ضغط الشبكة وفقد الاحتكاك في المواسير." },
+      { icon: "sun", t: "مصدر الكهرباء", p: "كهرباء عمومية 380 فولت، أو مولد، أو طاقة شمسية. يحدد طريقة تشغيل الموتور ومقاس الكابل." },
+    ],
+    pairH: "طلمبات TS حسب مقاس البئر",
+    pairNote: "طلمبات TS تُركَّب على مواتير ECO عن طريق وصلة NEMA، ويحدد فريق المبيعات الموتور المناسب لكل طلمبة.",
+    cols: ["مقاس البئر", "سلسلة الطلمبة", "القدرة", "التصرف حتى", "الرفع حتى"],
+  },
+  en: {
+    title: "Submersible pumps and motors",
+    lead: "Tormac stainless-steel submersible pumps and their motors, for 4 to 10 inch wells from 0.5 to 150 HP.",
+    desc: "Tormac submersible pumps and motors for 4, 6, 8 and 10 inch wells. Authorized agent with delivery to every governorate. Request a quote on WhatsApp.",
+    productsH: "Products",
+    chooseH: "4 figures that decide the right pump",
+    chooseP: "Send us these details with your request and our sales team recommends the right pump and motor.",
+    steps: [
+      { icon: "drop", t: "Inside well diameter", p: "Sets the pump and motor size: 4, 6, 8 or 10 inches. The pump must fit with enough clearance for water to flow past the motor." },
+      { icon: "pump", t: "Required flow", p: "Cubic metres of water per hour, based on land area and irrigation method or the number of homes served." },
+      { icon: "arrow", t: "Total head", p: "Pumping water level depth, plus tank height or network pressure, plus friction loss in the pipes." },
+      { icon: "sun", t: "Power source", p: "380 V grid, generator or solar. It decides how the motor is started and the cable size." },
+    ],
+    pairH: "TS pumps by well size",
+    pairNote: "TS pumps mount on ECO motors through a NEMA coupling, and our sales team confirms the right motor for each pump.",
+    cols: ["Well size", "Pump series", "Power", "Flow up to", "Head up to"],
+  },
+}[lang];
+
+const pairs = [
+  ["4", "TS 100", "0.5 – 17.5", "19", "535"],
+  ["6", "TS 150", "1 – 85", "120", "870"],
+  ["8", "TS 200", "7.5 – 150", "126", "518"],
+  ["10", "TS 250", "12.5 – 150", "280", "488"],
+];
+const u = lang === "ar" ? { in: "بوصة", hp: "حصان", m3: "م³/س", m: "م" } : { in: "in", hp: "HP", m3: "m³/h", m: "m" };
+---
+<Base lang={lang} title={c.title} description={c.desc}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.pumps }]} />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><h2>{c.productsH}</h2></div>
+      <div class="grid grid--2 cards-max">
+        {items.map((p) => <ProductCard product={p} lang={lang} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section-head">
+        <h2>{c.chooseH}</h2>
+        <p>{c.chooseP}</p>
+      </div>
+      <ol class="grid grid--4 steps">
+        {c.steps.map((s, i) => (
+          <li class="card">
+            <span class="card__icon"><Icon name={s.icon} size={24} /></span>
+            <span class="step-num">{i + 1}</span>
+            <h3 class="card__title">{s.t}</h3>
+            <p class="card__text">{s.p}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>{c.pairH}</h2>
+        <p>{c.pairNote}</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr>{c.cols.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+          <tbody>
+            {pairs.map(([w, s, hp, m, q]) => (
+              <tr><th scope="row">{w} {u.in}</th><td>{s}</td><td>{hp} {u.hp}</td><td>{m} {u.m3}</td><td>{q} {u.m}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Base>
+
+<style>
+  .cards-max { max-width: 820px; }
+  .steps { list-style: none; margin: 0; padding: 0; }
+  .steps .card { position: relative; }
+  .step-num { position: absolute; inset-block-start: 20px; inset-inline-end: 24px; font-size: 28px; line-height: 1; font-weight: 600; color: var(--leaf-tint); font-family: var(--font-brand); }
+</style>

@@ -1,0 +1,258 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import Icon from "@/components/Icon.astro";
+import { company } from "@/data/company";
+import { governorates } from "@/data/governorates";
+import { products, productPath } from "@/data/products";
+import { href, langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+
+const c = {
+  ar: {
+    title: "طلب عرض سعر",
+    lead: "راجع المنتجات في السلة، وأضف بياناتك لو حبيت، ثم أرسل الطلب على واتساب. فريق المبيعات يرد عليك بالسعر وموعد التوصيل.",
+    desc: "كوّن طلب عرض سعر لطلمبات Tormac ومواسير Astral وألواح LONGi وأرسله على واتساب.",
+    itemsH: "المنتجات في السلة",
+    empty: "السلة فاضية. اختر منتجًا وحدد المقاس والقدرة، ثم اضغط «أضف إلى عرض السعر».",
+    remove: "حذف",
+    clear: "إفراغ السلة",
+    detailsH: "بياناتك (اختياري)",
+    name: "الاسم",
+    gov: "المحافظة",
+    govNone: "اختر المحافظة",
+    city: "المدينة أو المركز",
+    notes: "ملاحظات",
+    notesHint: "مثال: قطر البئر وعمق المياه، أو موعد التسليم المطلوب.",
+    send: "أرسل الطلب على واتساب",
+    privacy: "بياناتك تُحفظ في متصفحك فقط، ولا تصلنا إلا عندما ترسل الرسالة بنفسك من واتساب.",
+    browse: "تصفح المنتجات",
+    msgIntro: "مرحبًا ايجيب جرين، أريد عرض سعر للمنتجات التالية:",
+    msgQty: "الكمية",
+    msgName: "الاسم",
+    msgGov: "المحافظة",
+    msgCity: "المدينة",
+    msgNotes: "ملاحظات",
+    msgFrom: "مرسل من موقع egypgreen.com",
+    lines: "منتج",
+  },
+  en: {
+    title: "Request a quote",
+    lead: "Review the products in your cart, add your details if you like, then send the request on WhatsApp. Our sales team replies with the price and delivery date.",
+    desc: "Build a quote request for Tormac pumps, Astral pipes and LONGi panels and send it on WhatsApp.",
+    itemsH: "Products in your cart",
+    empty: "Your cart is empty. Pick a product, choose the size and power, then press “Add to quote”.",
+    remove: "Remove",
+    clear: "Empty cart",
+    detailsH: "Your details (optional)",
+    name: "Name",
+    gov: "Governorate",
+    govNone: "Choose a governorate",
+    city: "City or district",
+    notes: "Notes",
+    notesHint: "For example: well diameter and water depth, or the delivery date you need.",
+    send: "Send request on WhatsApp",
+    privacy: "Your details are saved in your browser only, and reach us only when you send the message yourself from WhatsApp.",
+    browse: "Browse products",
+    msgIntro: "Hello EgypGreen, I would like a quote for the following products:",
+    msgQty: "Quantity",
+    msgName: "Name",
+    msgGov: "Governorate",
+    msgCity: "City",
+    msgNotes: "Notes",
+    msgFrom: "Sent from egypgreen.com",
+    lines: "items",
+  },
+}[lang];
+
+const config = {
+  lang,
+  wa: company.whatsapp.replace(/\D/g, ""),
+  productUrls: Object.fromEntries(products.map((p) => [p.slug, href(lang, productPath(p))])),
+  t: { remove: c.remove, qty: d.common.quantity, intro: c.msgIntro, msgQty: c.msgQty, msgName: c.msgName, msgGov: c.msgGov, msgCity: c.msgCity, msgNotes: c.msgNotes, msgFrom: c.msgFrom },
+};
+---
+<Base lang={lang} title={c.title} description={c.desc} noindex>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.quote }]} />
+
+  <section class="section">
+    <div class="container quote" data-quote data-config={JSON.stringify(config)}>
+      <div class="stack">
+        <div class="row quote__head">
+          <h2>{c.itemsH} <span class="quote__count" data-count></span></h2>
+          <button type="button" class="btn btn--ghost btn--sm" data-clear hidden><Icon name="trash" size={18} />{c.clear}</button>
+        </div>
+
+        <div class="quote__empty card card--mist" data-empty>
+          <span class="card__icon"><Icon name="cart" size={24} /></span>
+          <p>{c.empty}</p>
+          <div class="row">
+            <a href={href(lang, "/pumps")} class="btn btn--secondary btn--sm">{d.nav.pumps}</a>
+            <a href={href(lang, "/pipes")} class="btn btn--secondary btn--sm">{d.nav.pipes}</a>
+            <a href={href(lang, "/solar")} class="btn btn--secondary btn--sm">{d.nav.solar}</a>
+          </div>
+        </div>
+
+        <ul class="lines" data-lines></ul>
+
+        <template data-line-tpl>
+          <li class="line">
+            <div class="line__info">
+              <a class="line__name" data-name></a>
+              <span class="line__variant" data-variant></span>
+              <span class="line__detail" data-detail></span>
+            </div>
+            <div class="line__actions">
+              <div class="qty">
+                <button type="button" class="qty__btn" data-dec aria-label="−"><Icon name="minus" size={16} /></button>
+                <input class="input qty__input" type="number" inputmode="numeric" min="1" max="9999" data-qty />
+                <button type="button" class="qty__btn" data-inc aria-label="+"><Icon name="plus" size={16} /></button>
+              </div>
+              <button type="button" class="line__remove" data-remove><Icon name="trash" size={18} /><span class="sr-only">{c.remove}</span></button>
+            </div>
+          </li>
+        </template>
+      </div>
+
+      <aside class="card quote__side">
+        <h2 class="card__title">{c.detailsH}</h2>
+        <div class="field">
+          <label for="q-name">{c.name}</label>
+          <input id="q-name" class="input" type="text" autocomplete="name" maxlength="80" data-field="name" />
+        </div>
+        <div class="field">
+          <label for="q-gov">{c.gov}</label>
+          <select id="q-gov" class="select" data-field="gov">
+            <option value="">{c.govNone}</option>
+            {governorates.map((g) => <option value={g[lang]}>{g[lang]}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for="q-city">{c.city}</label>
+          <input id="q-city" class="input" type="text" maxlength="80" data-field="city" />
+        </div>
+        <div class="field">
+          <label for="q-notes">{c.notes}</label>
+          <textarea id="q-notes" class="textarea" maxlength="600" data-field="notes" placeholder={c.notesHint}></textarea>
+        </div>
+        <button type="button" class="btn btn--primary btn--block" data-send disabled><Icon name="whatsapp" size={20} />{c.send}</button>
+        <p class="quote__privacy">{c.privacy}</p>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { cart, type CartItem } from "@/scripts/cart";
+
+  const root = document.querySelector<HTMLElement>("[data-quote]")!;
+  const cfg = JSON.parse(root.dataset.config!) as {
+    lang: "ar" | "en";
+    wa: string;
+    productUrls: Record<string, string>;
+    t: Record<string, string>;
+  };
+  const L = cfg.lang;
+  const list = root.querySelector<HTMLUListElement>("[data-lines]")!;
+  const tpl = root.querySelector<HTMLTemplateElement>("[data-line-tpl]")!;
+  const empty = root.querySelector<HTMLElement>("[data-empty]")!;
+  const clearBtn = root.querySelector<HTMLButtonElement>("[data-clear]")!;
+  const sendBtn = root.querySelector<HTMLButtonElement>("[data-send]")!;
+  const count = root.querySelector<HTMLElement>("[data-count]")!;
+  const fields = [...root.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("[data-field]")];
+
+  // Unsent form draft: a per-visitor convenience only.
+  const DRAFT = "eg-quote-draft-v1";
+  try {
+    const saved = JSON.parse(localStorage.getItem(DRAFT) ?? "{}");
+    fields.forEach((f) => { if (typeof saved[f.dataset.field!] === "string") f.value = saved[f.dataset.field!]; });
+  } catch { /* ignore */ }
+  const saveDraft = () => {
+    try { localStorage.setItem(DRAFT, JSON.stringify(Object.fromEntries(fields.map((f) => [f.dataset.field, f.value])))); } catch { /* ignore */ }
+  };
+  fields.forEach((f) => f.addEventListener("input", saveDraft));
+
+  function render() {
+    const items = cart.items();
+    empty.hidden = items.length > 0;
+    clearBtn.hidden = items.length === 0;
+    sendBtn.disabled = items.length === 0;
+    count.textContent = items.length ? `(${items.length})` : "";
+    list.replaceChildren(...items.map(line));
+  }
+
+  function line(item: CartItem) {
+    const li = tpl.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
+    const name = li.querySelector<HTMLAnchorElement>("[data-name]")!;
+    name.textContent = item.name[L];
+    name.href = cfg.productUrls[item.product] ?? "#";
+    li.querySelector("[data-variant]")!.textContent = item.variant[L];
+    li.querySelector("[data-detail]")!.textContent = item.detail?.[L] ?? "";
+    const qty = li.querySelector<HTMLInputElement>("[data-qty]")!;
+    qty.value = String(item.qty);
+    qty.setAttribute("aria-label", `${cfg.t.qty}: ${item.name[L]}`);
+    qty.addEventListener("change", () => cart.setQty(item.key, Number(qty.value)));
+    li.querySelector("[data-dec]")!.addEventListener("click", () => cart.setQty(item.key, item.qty - 1));
+    li.querySelector("[data-inc]")!.addEventListener("click", () => cart.setQty(item.key, item.qty + 1));
+    li.querySelector("[data-remove]")!.addEventListener("click", () => cart.remove(item.key));
+    return li;
+  }
+
+  function message() {
+    const items = cart.items();
+    const out = [cfg.t.intro, ""];
+    items.forEach((it, i) => {
+      out.push(`${i + 1}) ${it.name[L]}`);
+      out.push(`   ${it.variant[L]}${it.detail ? ` (${it.detail[L]})` : ""}`);
+      out.push(`   ${cfg.t.msgQty}: ${it.qty}`);
+      out.push("");
+    });
+    const v = Object.fromEntries(fields.map((f) => [f.dataset.field, f.value.trim()]));
+    if (v.name) out.push(`${cfg.t.msgName}: ${v.name}`);
+    if (v.gov) out.push(`${cfg.t.msgGov}: ${v.gov}`);
+    if (v.city) out.push(`${cfg.t.msgCity}: ${v.city}`);
+    if (v.notes) out.push(`${cfg.t.msgNotes}: ${v.notes}`);
+    if (v.name || v.gov || v.city || v.notes) out.push("");
+    out.push(cfg.t.msgFrom);
+    return out.join("\n");
+  }
+
+  sendBtn.addEventListener("click", () => {
+    if (!cart.lines()) return;
+    window.open(`https://wa.me/${cfg.wa}?text=${encodeURIComponent(message())}`, "_blank", "noopener");
+  });
+  clearBtn.addEventListener("click", () => cart.clear());
+
+  render();
+  cart.onChange(render);
+</script>
+
+<style>
+  .quote { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .quote { grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start; } .quote__side { position: sticky; top: 130px; } }
+  .quote__head { justify-content: space-between; }
+  .quote__count { color: var(--ink-muted); font-weight: 400; }
+  .quote__empty { align-items: flex-start; }
+  .lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .line { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--white); }
+  .line__info { display: flex; flex-direction: column; gap: 2px; flex: 1 1 280px; min-width: 0; }
+  .line__name { font-weight: 600; color: var(--ink); text-decoration: none; }
+  .line__name:hover { color: var(--deep-green); text-decoration: underline; }
+  .line__variant { font-size: 15px; line-height: 24px; color: var(--graphite); }
+  .line__detail { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+  .line__actions { display: flex; align-items: center; gap: 12px; }
+  .line__remove { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--white); color: var(--ink-muted); cursor: pointer; }
+  .line__remove:hover { color: #A12A1E; border-color: #E5B8B1; }
+  .qty { display: flex; align-items: stretch; width: 150px; }
+  .qty__btn { width: 40px; flex: none; border: 1px solid var(--line); background: var(--cloud); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .qty__btn:first-child { border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); }
+  .qty__btn:last-child { border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); }
+  .qty__btn:hover { background: var(--mist); }
+  .qty__input { min-height: 40px; border-radius: 0; border-inline: 0; text-align: center; padding: 6px; -moz-appearance: textfield; }
+  .qty__input::-webkit-outer-spin-button, .qty__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .quote__side { gap: 16px; }
+  .quote__privacy { font-size: 13px; line-height: 20px; color: var(--ink-muted); }
+</style>

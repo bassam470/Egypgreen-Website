@@ -1,0 +1,123 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import ProductCard from "@/components/ProductCard.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import Icon from "@/components/Icon.astro";
+import { productBySlug } from "@/data/products";
+import { href, langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const p = productBySlug("astral-bore-well-column-pipes");
+
+const c = {
+  ar: {
+    title: "مواسير الآبار uPVC",
+    lead: "مواسير أعمدة Astral Bore-Well للطلمبات الغاطسة: خالية من الرصاص، بسن مربع ووصلات محكمة، من 1 إلى 5 بوصة.",
+    desc: "مواسير Astral Bore-Well uPVC للآبار والطلمبات الغاطسة، مقاسات 1 إلى 5 بوصة ورفع حتى 400 متر. وكيل معتمد مع توصيل لكل المحافظات.",
+    whyH: "لماذا uPVC بدل المواسير الحديد",
+    rows: [
+      ["العمر", "لا تصدأ ولا تتفاعل مع المياه المالحة أو الحمضية", "تصدأ وتتآكل وتحتاج تغييرًا بعد سنوات"],
+      ["الوزن", "خفيفة، فالتنزيل والرفع أسرع وأسهل", "ثقيلة وتحتاج معدات وجهدًا أكبر"],
+      ["السطح الداخلي", "أملس، فقد احتكاك أقل وتصرف أعلى", "خشن ويزيد خشونة مع الصدأ"],
+      ["الوصلات", "حلقة EPDM على كل وصلة تمنع التسريب", "بدون حلقة إحكام، وقابلة للتسريب"],
+      ["استهلاك الكهرباء", "فقد أقل يعني قدرة أقل لنفس الرفع", "فقد أعلى يعني استهلاكًا أكبر"],
+    ],
+    cols: ["البند", "مواسير Astral uPVC", "مواسير حديد مجلفن"],
+    classH: "اختيار الفئة حسب عمق التشغيل",
+    classP: "كل فئة لها أقصى رفع آمن للطلمبة، ويختلف قليلًا حسب المقاس. اختر فئة يغطي رفعها الرفع الكلي لطلمبتك، والقيمة الدقيقة لكل مقاس في الجدول الفني.",
+    classes: [
+      { k: "80 – 125 م", v: "V4 و Eco Medium", n: "آبار ضحلة" },
+      { k: "100 – 160 م", v: "Medium و Eco Standard", n: "آبار متوسطة العمق" },
+      { k: "150 – 300 م", v: "Crystal و Standard و Standard Plus", n: "أغلب آبار الري العميقة" },
+      { k: "260 – 400 م", v: "Heavy و Heavy Plus و Super Heavy", n: "أعماق كبيرة وطلمبات ثقيلة" },
+    ],
+    full: "الجدول الفني الكامل",
+  },
+  en: {
+    title: "uPVC bore-well pipes",
+    lead: "Astral Bore-Well column pipes for submersible pumps: lead-free, square-threaded, sealed joints, from 1 to 5 inches.",
+    desc: "Astral Bore-Well uPVC column pipes for wells and submersible pumps, 1 to 5 inch, for heads up to 400 m. Authorized agent with delivery to every governorate.",
+    whyH: "Why uPVC instead of steel pipe",
+    rows: [
+      ["Service life", "Doesn't rust or react with salty or acidic water", "Rusts and corrodes, needs replacing after some years"],
+      ["Weight", "Light, so lowering and lifting are quicker", "Heavy, needs more equipment and effort"],
+      ["Bore", "Smooth, so less friction and more flow", "Rough, and gets rougher as it rusts"],
+      ["Joints", "EPDM O-ring on every joint stops leaks", "No seal ring, prone to leaks"],
+      ["Power use", "Lower loss means less power for the same head", "Higher loss means higher consumption"],
+    ],
+    cols: ["", "Astral uPVC pipes", "Galvanised steel pipes"],
+    classH: "Choosing a class by pumping depth",
+    classP: "Each class has a safe maximum pump head, which varies a little by size. Pick a class whose head covers your pump's total head; the exact value per size is in the technical chart.",
+    classes: [
+      { k: "80 – 125 m", v: "V4 and Eco Medium", n: "Shallow wells" },
+      { k: "100 – 160 m", v: "Medium and Eco Standard", n: "Medium-depth wells" },
+      { k: "150 – 300 m", v: "Crystal, Standard and Standard Plus", n: "Most deep irrigation wells" },
+      { k: "260 – 400 m", v: "Heavy, Heavy Plus and Super Heavy", n: "Very deep wells and heavy pumps" },
+    ],
+    full: "Full technical chart",
+  },
+}[lang];
+---
+<Base lang={lang} title={c.title} description={c.desc}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.pipes }]} />
+
+  <section class="section">
+    <div class="container split">
+      <ProductCard product={p} lang={lang} headingLevel={2} />
+      <div class="stack">
+        {p.intro[lang].map((para) => <p>{para}</p>)}
+        <ul class="checklist">
+          {p.features[lang].slice(0, 4).map((f) => <li><Icon name="check" size={18} /><span>{f}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cloud section--bordered">
+    <div class="container">
+      <div class="section-head"><h2>{c.whyH}</h2></div>
+      <div class="table-wrap">
+        <table class="table compare">
+          <thead><tr>{c.cols.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+          <tbody>
+            {c.rows.map(([k, a, b]) => <tr><th scope="row">{k}</th><td>{a}</td><td>{b}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--row">
+        <div class="stack" style="gap:8px;max-width:720px">
+          <h2>{c.classH}</h2>
+          <p class="muted">{c.classP}</p>
+        </div>
+        <a href={href(lang, `/products/${p.slug}`) + "#chart"} class="btn btn--secondary">{c.full}</a>
+      </div>
+      <div class="grid grid--4">
+        {c.classes.map((x) => (
+          <div class="card">
+            <span class="class-k">{x.k}</span>
+            <span class="card__title">{x.v}</span>
+            <span class="card__text">{x.n}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Base>
+
+<style>
+  .split { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .split { grid-template-columns: 380px 1fr; gap: 48px; align-items: start; } }
+  .compare td:nth-child(2) { color: var(--pine); }
+  .compare th, .compare td { white-space: normal; min-width: 160px; }
+  .class-k { font-size: 22px; line-height: 30px; font-weight: 600; color: var(--deep-green); }
+</style>

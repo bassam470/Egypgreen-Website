@@ -1,0 +1,101 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import ProductCard from "@/components/ProductCard.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import Icon from "@/components/Icon.astro";
+import { brands } from "@/data/brands";
+import { categoryPath, products } from "@/data/products";
+import { href, langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+
+const c = {
+  ar: {
+    title: "الوكالات",
+    lead: "ايجيب جرين وكيل معتمد لثلاث علامات عالمية. كل منتج نبيعه أصلي من المصنع وبضمان الوكيل المعتمد.",
+    desc: "ايجيب جرين وكيل معتمد لـ Tormac للطلمبات الغاطسة وAstral لمواسير الآبار وLONGi للألواح الشمسية في مصر.",
+    origin: "بلد المنشأ",
+    line: "ما نوزعه",
+    products: "المنتجات",
+    goTo: "صفحة القسم",
+    genuineH: "لماذا تشتري من الوكيل المعتمد",
+    genuine: [
+      "منتج أصلي من المصنع، بالمواصفات المنشورة في الكتالوج.",
+      "ضمان الوكيل المعتمد على كل منتج.",
+      "توفر المقاسات والموديلات من مخزون محلي في 6 أكتوبر.",
+      "معلومة فنية من كتالوجات المصنع مباشرة.",
+    ],
+  },
+  en: {
+    title: "Brands",
+    lead: "EgypGreen is the authorized agent for three international brands. Every product we sell is genuine factory stock with authorized-agent warranty.",
+    desc: "EgypGreen is the authorized agent in Egypt for Tormac submersible pumps, Astral bore-well pipes and LONGi solar panels.",
+    origin: "Country of origin",
+    line: "What we distribute",
+    products: "Products",
+    goTo: "Category page",
+    genuineH: "Why buy from the authorized agent",
+    genuine: [
+      "Genuine factory product, to the specification published in the catalogue.",
+      "Authorized-agent warranty on every product.",
+      "Sizes and models available from local stock in 6th of October.",
+      "Technical information straight from the manufacturer's catalogues.",
+    ],
+  },
+}[lang];
+---
+<Base lang={lang} title={c.title} description={c.desc}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.brands }]} />
+
+  {brands.map((b, i) => (
+    <section class:list={["section", { "section--cloud section--bordered": i % 2 === 1 }]} id={b.id}>
+      <div class="container brand">
+        <div class="brand__info">
+          <div class="brand__logo"><img src={b.logo} alt={b.name} width="240" height="80" loading="lazy" /></div>
+          <span class="tag">{d.common.authorizedAgent}</span>
+          <h2>{b.name}</h2>
+          <p>{b.about[lang]}</p>
+          <dl class="brand__facts">
+            <div><dt>{c.origin}</dt><dd>{b.country[lang]}</dd></div>
+            <div><dt>{c.line}</dt><dd>{b.line[lang]}</dd></div>
+          </dl>
+          <a href={href(lang, categoryPath[b.category])} class="btn btn--secondary">{c.goTo}<Icon name="arrow" size={18} flip /></a>
+        </div>
+        <div class="brand__products">
+          {products.filter((p) => p.brand === b.id).map((p) => <ProductCard product={p} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section-head"><h2>{c.genuineH}</h2></div>
+      <ul class="checklist genuine">
+        {c.genuine.map((g) => <li><Icon name="check" size={18} /><span>{g}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Base>
+
+<style>
+  .brand { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .brand { grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; } }
+  .brand__info { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .brand__logo { padding: 16px 24px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--white); }
+  .brand__logo img { height: 56px; width: auto; }
+  .brand__facts { margin: 0; display: grid; gap: 8px; }
+  .brand__facts div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .brand__facts dt { color: var(--ink-muted); }
+  .brand__facts dt::after { content: ":"; }
+  .brand__facts dd { margin: 0; font-weight: 600; }
+  .brand__products { display: grid; gap: 16px; }
+  @media (min-width: 640px) { .brand__products { grid-template-columns: repeat(2, 1fr); } }
+  .genuine { grid-template-columns: 1fr; }
+  @media (min-width: 768px) { .genuine { grid-template-columns: repeat(2, 1fr); gap: 12px 32px; } }
+</style>

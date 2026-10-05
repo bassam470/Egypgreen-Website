@@ -1,0 +1,98 @@
+---
+import Icon from "./Icon.astro";
+import { company, displayPhone } from "@/data/company";
+import { href, t, type Lang } from "@/i18n";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const year = new Date().getFullYear();
+const logo = lang === "ar" ? "egypgreen-lockup-ar-en-white.svg" : "egypgreen-lockup-en-ar-white.svg";
+
+const productLinks = [
+  { label: d.nav.pumps, to: "/pumps" },
+  { label: d.nav.pipes, to: "/pipes" },
+  { label: d.nav.solar, to: "/solar" },
+  { label: d.nav.catalogs, to: "/catalogs" },
+  { label: d.nav.quote, to: "/quote" },
+];
+const companyLinks = [
+  { label: d.nav.about, to: "/about" },
+  { label: d.nav.brands, to: "/brands" },
+  { label: d.nav.applications, to: "/applications" },
+  { label: d.nav.articles, to: "/articles" },
+  { label: d.nav.contact, to: "/contact" },
+];
+const policyLinks = [
+  { label: d.nav.privacy, to: "/policies/privacy" },
+  { label: d.nav.terms, to: "/policies/terms" },
+  { label: d.nav.warranty, to: "/policies/warranty" },
+];
+---
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <img src={`/logo/${logo}`} alt={d.meta.siteName} width="168" height="60" loading="lazy" />
+      <p>{d.footer.about}</p>
+    </div>
+
+    <nav aria-label={d.footer.products}>
+      <h2 class="footer__h">{d.footer.products}</h2>
+      <ul>{productLinks.map((l) => <li><a href={href(lang, l.to)}>{l.label}</a></li>)}</ul>
+    </nav>
+
+    <nav aria-label={d.footer.company}>
+      <h2 class="footer__h">{d.footer.company}</h2>
+      <ul>{companyLinks.map((l) => <li><a href={href(lang, l.to)}>{l.label}</a></li>)}</ul>
+    </nav>
+
+    <div>
+      <h2 class="footer__h">{d.footer.contact}</h2>
+      <ul class="footer__contact">
+        {company.phones.map((p) => (
+          <li><Icon name="phone" size={18} /><a href={`tel:${p}`} class="ltr">{displayPhone(p)}</a></li>
+        ))}
+        <li><Icon name="whatsapp" size={18} /><a href={`https://wa.me/${company.whatsapp.replace(/\D/g, "")}`} rel="noopener">{d.common.whatsappUs}</a></li>
+        {company.emailActive && (
+          <li><Icon name="email" size={18} /><a href={`mailto:${company.email}`}>{company.email}</a></li>
+        )}
+        <li><Icon name="pin" size={18} /><span>{company.address[lang]}</span></li>
+        <li><Icon name="clock" size={18} /><span>{d.common.hoursValue}</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__legal">
+    <div class="container footer__legal-in">
+      <p>
+        © {year} {lang === "en" && "EgypGreen · "}<span lang="ar">{company.legal.nameAr} (ش.ذ.م.م)</span>. {d.footer.rights}
+      </p>
+      <p>
+        {d.footer.cr} <span class="ltr">{company.legal.commercialRegister}</span> · {d.footer.crOffice} · {d.footer.registeredAddress}: {company.registeredAddress[lang]}
+      </p>
+      <ul class="footer__policies">
+        {policyLinks.map((l) => <li><a href={href(lang, l.to)}>{l.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--pine); color: var(--white); font-size: 15px; line-height: 24px; }
+  .footer__grid { display: grid; gap: 32px; padding-block: 48px 32px; }
+  @media (min-width: 640px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .footer__grid { grid-template-columns: 1.5fr 1fr 1fr 1.5fr; } }
+  .footer__brand { display: flex; flex-direction: column; gap: 16px; }
+  .footer__brand img { height: 56px; width: auto; }
+  .footer__brand p { color: #CFE0D5; max-width: 360px; }
+  .footer__h { margin: 0 0 12px; font-size: 15px; line-height: 22px; color: var(--leaf-light); font-weight: 600; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  a { color: var(--white); text-decoration: none; }
+  a:hover { color: var(--leaf-light); text-decoration: underline; }
+  .footer__contact li { display: flex; gap: 10px; align-items: flex-start; }
+  .footer__contact :global(.icon) { color: var(--leaf-light); margin-top: 3px; }
+  .footer__legal { border-block-start: 1px solid #2A6142; font-size: 13px; line-height: 22px; color: #CFE0D5; }
+  .footer__legal-in { display: flex; flex-direction: column; gap: 6px; padding-block: 16px 20px; }
+  .footer__policies { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 4px; }
+  .footer__policies a { color: #CFE0D5; }
+</style>

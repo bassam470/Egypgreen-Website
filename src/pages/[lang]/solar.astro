@@ -1,0 +1,143 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import ProductCard from "@/components/ProductCard.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import Icon from "@/components/Icon.astro";
+import raw from "../../../data/solar-panels-longi.json";
+import { productBySlug } from "@/data/products";
+import { href, langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const p = productBySlug("longi-solar-panels");
+const productHref = href(lang, `/products/${p.slug}`);
+
+const c = {
+  ar: {
+    title: "الألواح الشمسية",
+    lead: "7 موديلات من ألواح LONGi أحادية البلورة، من 440 إلى 670 وات، للأسطح والمحطات الأرضية ومشروعات الري.",
+    desc: "ألواح LONGi الشمسية: 7 موديلات من 440 إلى 670 وات بكفاءة حتى 24.8%. وكيل معتمد مع توصيل لكل المحافظات. اطلب عرض سعر على واتساب.",
+    modelsH: "الموديلات السبعة",
+    modelsP: "اضغط على أي موديل لترى جدوله الكهربائي الكامل.",
+    w: "وات",
+    eff: "كفاءة حتى",
+    bif: "ثنائي الوجه",
+    mono: "وجه واحد",
+    pickH: "كيف تختار الموديل",
+    picks: [
+      { icon: "home", t: "المساحة المتاحة", p: "الألواح 1800 مم أسهل في التركيب على أسطح المنازل. الألواح 2382 مم تعطي قدرة أكبر لكل لوح وتقلل عدد الهياكل في المساحات الكبيرة." },
+      { icon: "panel", t: "وجه أو وجهين", p: "الألواح ثنائية الوجه تنتج كهرباء إضافية من الضوء المنعكس على ظهرها، وتفيد أكثر في المحطات الأرضية المرفوعة فوق أرض فاتحة." },
+      { icon: "sun", t: "الكفاءة", p: "كفاءة أعلى تعني كهرباء أكثر من نفس المساحة. سلسلة Hi-MO X10 تصل إلى 24.8%." },
+      { icon: "shield", t: "الضمان", p: "ضمان المنتج من 12 إلى 25 سنة، وضمان الأداء من 25 إلى 30 سنة حسب الموديل." },
+    ],
+    pumpH: "ألواح وطلمبات من مصدر واحد",
+    pumpP: "نوزع ألواح LONGi وطلمبات ومواتير Tormac الغاطسة ومواسير Astral، فتطلب مكونات مشروع الري بالطاقة الشمسية في عرض سعر واحد.",
+    pumpLink: "الطلمبات والمواتير",
+  },
+  en: {
+    title: "Solar panels",
+    lead: "7 LONGi monocrystalline models from 440 to 670 W, for rooftops, ground-mounted plants and irrigation projects.",
+    desc: "LONGi solar panels: 7 models from 440 to 670 W with efficiency up to 24.8%. Authorized agent with delivery to every governorate. Request a quote on WhatsApp.",
+    modelsH: "The 7 models",
+    modelsP: "Click a model to see its full electrical table.",
+    w: "W",
+    eff: "Efficiency up to",
+    bif: "Bifacial",
+    mono: "Monofacial",
+    pickH: "How to choose a model",
+    picks: [
+      { icon: "home", t: "Available space", p: "1800 mm panels are easier to place on home rooftops. 2382 mm panels give more power per panel and need fewer structures on large sites." },
+      { icon: "panel", t: "One face or two", p: "Bifacial panels generate extra power from light reflected onto their back, which helps most on raised ground-mounted arrays over light-coloured ground." },
+      { icon: "sun", t: "Efficiency", p: "Higher efficiency means more power from the same area. The Hi-MO X10 series reaches 24.8%." },
+      { icon: "shield", t: "Warranty", p: "Product warranty runs from 12 to 25 years and performance warranty from 25 to 30 years, depending on the model." },
+    ],
+    pumpH: "Panels and pumps from one supplier",
+    pumpP: "We distribute LONGi panels, Tormac submersible pumps and motors, and Astral pipes, so you can request the parts for a solar irrigation project in one quote.",
+    pumpLink: "Pumps and motors",
+  },
+}[lang];
+---
+<Base lang={lang} title={c.title} description={c.desc}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.solar }]} />
+
+  <section class="section">
+    <div class="container split">
+      <ProductCard product={p} lang={lang} headingLevel={2} />
+      <div class="stack">
+        {p.intro[lang].map((para) => <p>{para}</p>)}
+        <ul class="checklist">
+          {p.features[lang].slice(0, 4).map((f) => <li><Icon name="check" size={18} /><span>{f}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cloud section--bordered">
+    <div class="container">
+      <div class="section-head">
+        <h2>{c.modelsH}</h2>
+        <p>{c.modelsP}</p>
+      </div>
+      <ul class="models">
+        {raw.products.map((m) => (
+          <li>
+            <a href={`${productHref}#${m.slug}`} class="model">
+              <img src={`/images/products/longi/${m.slug}.webp`} alt={`LONGi ${m.model}`} width="900" height="900" loading="lazy" />
+              <span class="model__body">
+                <span class="model__series">{m.series}</span>
+                <span class="model__name">{m.model}</span>
+                <span class="model__w">{m.power_range_w[0]} – {m.power_range_w[1]} {c.w}</span>
+                <span class="model__meta">{c.eff} {m.max_efficiency_pct}% · {m.bifacial ? c.bif : c.mono}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><h2>{c.pickH}</h2></div>
+      <div class="grid grid--4">
+        {c.picks.map((x) => (
+          <div class="card">
+            <span class="card__icon"><Icon name={x.icon} size={24} /></span>
+            <h3 class="card__title">{x.t}</h3>
+            <p class="card__text">{x.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container combo">
+      <div class="stack">
+        <h2>{c.pumpH}</h2>
+        <p>{c.pumpP}</p>
+      </div>
+      <a href={href(lang, "/pumps")} class="btn btn--secondary">{c.pumpLink}<Icon name="arrow" size={18} flip /></a>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Base>
+
+<style>
+  .split { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .split { grid-template-columns: 380px 1fr; gap: 48px; align-items: start; } }
+  .models { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+  .model { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--white); color: var(--ink); text-decoration: none; height: 100%; }
+  .model:hover { border-color: var(--deep-green); }
+  .model img { aspect-ratio: 1; object-fit: cover; width: 100%; }
+  .model__body { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px 16px; }
+  .model__series { font-size: 13px; color: var(--ink-muted); }
+  .model__name { font-weight: 600; font-family: var(--font-brand); }
+  .model__w { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--deep-green); }
+  .model__meta { font-size: 14px; color: var(--ink-muted); }
+  .combo { display: flex; flex-direction: column; gap: 20px; }
+  @media (min-width: 768px) { .combo { flex-direction: row; align-items: center; justify-content: space-between; } .combo .stack { max-width: 720px; } }
+</style>

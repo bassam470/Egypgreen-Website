@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import { formatDate, splitId } from "@/lib/content";
+import { t, type Lang } from "@/i18n";
+
+export async function getStaticPaths() {
+  const all = await getCollection("policies");
+  return all.map((entry) => {
+    const { lang, slug } = splitId(entry.id);
+    return { params: { lang, slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const { Content } = await render(entry);
+const updated = lang === "ar" ? "آخر تحديث" : "Last updated";
+---
+<Base lang={lang} title={entry.data.title} description={entry.data.description}>
+  <PageHero lang={lang} title={entry.data.title} crumbs={[{ label: d.nav.policies }, { label: entry.data.title }]}>
+    <p class="muted">{updated}: {formatDate(entry.data.updated, lang)}</p>
+  </PageHero>
+  <section class="section">
+    <div class="container">
+      <article class="prose"><Content /></article>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,80 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHero from "@/components/PageHero.astro";
+import CtaBand from "@/components/CtaBand.astro";
+import Icon from "@/components/Icon.astro";
+import { brands } from "@/data/brands";
+import { catalogs } from "@/data/catalogs";
+import { langPaths, t, type Lang } from "@/i18n";
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+
+const c = {
+  ar: {
+    title: "الكتالوجات",
+    lead: "كتالوجات المصنعين ونشرات المواصفات لكل المنتجات، بصيغة PDF للتحميل.",
+    desc: "حمّل كتالوجات طلمبات ومواتير Tormac الغاطسة ومواسير Astral Bore-Well ونشرات ألواح LONGi الشمسية بصيغة PDF.",
+    mb: "ميجابايت",
+    pages: "صفحة",
+    note: "الكتالوجات صادرة عن المصنعين وباللغة الإنجليزية. لو احتجت مساعدة في قراءة جدول أو اختيار موديل، راسلنا على واتساب.",
+  },
+  en: {
+    title: "Catalogues",
+    lead: "Manufacturers' catalogues and datasheets for every product, as PDF downloads.",
+    desc: "Download catalogues for Tormac submersible pumps and motors, Astral Bore-Well pipes and LONGi solar panel datasheets as PDF.",
+    mb: "MB",
+    pages: "pages",
+    note: "The catalogues are published by the manufacturers in English. If you need help reading a table or choosing a model, message us on WhatsApp.",
+  },
+}[lang];
+---
+<Base lang={lang} title={c.title} description={c.desc}>
+  <PageHero lang={lang} title={c.title} lead={c.lead} crumbs={[{ label: d.nav.catalogs }]} />
+
+  <section class="section">
+    <div class="container stack" style="gap:48px">
+      <div class="notice notice--mist"><Icon name="doc" size={20} /><p>{c.note}</p></div>
+      {brands.map((b) => (
+        <div class="stack">
+          <div class="row brand-row">
+            <img src={b.logo} alt={b.name} width="120" height="40" loading="lazy" />
+            <h2 class="brand-row__h">{b.line[lang]}</h2>
+          </div>
+          <ul class="docs">
+            {catalogs.filter((x) => x.brand === b.id).map((x) => (
+              <li>
+                <a href={x.file} class="doc" download>
+                  <span class="card__icon"><Icon name="doc" size={24} /></span>
+                  <span class="doc__text">
+                    <span class="doc__title">{x.title[lang]}</span>
+                    <span class="doc__desc">{x.description[lang]}</span>
+                    <span class="doc__meta">PDF · {x.sizeMb} {c.mb} · {x.pages} {c.pages} · {x.language[lang]}</span>
+                  </span>
+                  <span class="doc__dl"><Icon name="download" size={20} /><span class="sr-only">{d.common.download}</span></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Base>
+
+<style>
+  .brand-row img { height: 36px; width: auto; }
+  .brand-row__h { font-size: 20px; line-height: 28px; }
+  .docs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  @media (min-width: 768px) { .docs { grid-template-columns: repeat(2, 1fr); } }
+  .doc { display: flex; align-items: flex-start; gap: 16px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--white); color: var(--ink); text-decoration: none; height: 100%; }
+  .doc:hover { border-color: var(--deep-green); }
+  .doc__text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .doc__title { font-weight: 600; }
+  .doc__desc { font-size: 15px; line-height: 24px; color: var(--graphite); }
+  .doc__meta { font-size: 13px; color: var(--ink-muted); margin-top: 4px; }
+  .doc__dl { color: var(--deep-green); margin-top: 4px; }
+</style>

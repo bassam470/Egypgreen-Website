@@ -1,0 +1,16 @@
+---
+const icons = import.meta.glob<string>("../assets/icons/*.svg", { query: "?raw", import: "default", eager: true });
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+  /** Mirror in RTL (arrows, chevrons). */
+  flip?: boolean;
+}
+const { name, size = 20, class: cls, flip = false } = Astro.props;
+const svg = icons[`../assets/icons/${name}.svg`];
+if (!svg) throw new Error(`Unknown icon "${name}"`);
+const html = svg.replace("<svg ", `<svg width="${size}" height="${size}" `);
+---
+<span class:list={["icon", { "icon--flip": flip }, cls]} set:html={html} />

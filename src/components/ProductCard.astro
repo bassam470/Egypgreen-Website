@@ -1,0 +1,25 @@
+---
+import Icon from "./Icon.astro";
+import { brandById } from "@/data/brands";
+import { productPath, type Product } from "@/data/products";
+import { href, t, type Lang } from "@/i18n";
+
+interface Props { product: Product; lang: Lang; headingLevel?: 2 | 3 }
+const { product: p, lang, headingLevel = 3 } = Astro.props;
+const d = t(lang);
+const H: "h2" | "h3" = headingLevel === 2 ? "h2" : "h3";
+---
+<a href={href(lang, productPath(p))} class="pcard">
+  <div class="pcard__img">
+    <span class="tag">{d.common.authorizedAgent}</span>
+    <img src={p.cardImage} alt={p.name[lang]} width="800" height="600" loading="lazy" />
+  </div>
+  <div class="pcard__body">
+    <span class="pcard__brand">{brandById(p.brand).name}</span>
+    <H class="pcard__name">{p.name[lang]}</H>
+    <dl class="pcard__specs">
+      {p.cardSpecs.map((s) => <><dt>{s.label[lang]}</dt><dd>{s.value[lang]}</dd></>)}
+    </dl>
+    <span class="pcard__foot">{d.common.viewProduct}<Icon name="arrow" size={18} flip /></span>
+  </div>
+</a>
